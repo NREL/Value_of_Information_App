@@ -30,13 +30,13 @@ affiliations:
    index: 2
 #  - name: Independent Researcher, Country
 #    index: 3
-date: 13 August 2017
+date: November 2024
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
+# aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
+# aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
 # Summary
@@ -47,7 +47,7 @@ geothermal resources are geothermal resources that do not show any evidence
 of existence on the surface, thus geophysical and geological observations 
 are used to make estimates of subsurface conditions. None of the the data 
 layers are direct evidence of heat, permeability and fluids, therefore 
-they are imperect indicators. The value of information (VOI) metric 
+they are imperect indicators [@faulds_discovering_2015]. The value of information (VOI) metric 
 attempts to quantify how useful specific information types are
 by quantifying their reliability and how it may help or hinder with decisions. 
 VOI is from field of decision analysis and assess if the information will
