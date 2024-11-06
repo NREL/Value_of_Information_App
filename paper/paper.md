@@ -8,11 +8,11 @@ tags:
 authors:
   - name: Whitney J. Trainor-Guitton
     orcid: 0000-0002-5726-3886
-    equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
+    equal-contrib: false
+    affiliation: "1" # (Multiple affiliations must be quoted)
     name: Karthik Menon (Author Without ORCID)
     equal-contrib: false # (This is how you can denote equal contributions between multiple authors)
-    affiliation: 2
+    affiliation: 1
   # - name: Sierra Rosario (Author Without ORCID)
   #   equal-contrib: false # (This is how you can denote equal contributions between multiple authors)
   #   affiliation: 2
@@ -37,6 +37,7 @@ bibliography: paper.bib
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
 # aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
 # aas-journal: Astrophysical Journal <- The name of the AAS journal.
+
 ---
 
 # Summary
@@ -50,7 +51,7 @@ layers are direct evidence of heat, permeability and fluids, therefore
 they are imperect indicators [@faulds_discovering_2015]. The value of information (VOI) metric 
 attempts to quantify how useful specific information types are
 by quantifying their reliability and how it may help or hinder with decisions [@howard_information_1966]. 
-VOI is from field of decision analysis and assess if the information will
+VOI is from the field of decision analysis and assess if the information will
 improve the average outcome of a decision made under uncertainty, like
 developing a hidden geothermal resource.
 
@@ -87,32 +88,24 @@ The posterior replaces the prior to become the weight in the value *with* imperf
 $V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \theta_i | X=x_j)  v_a(\Theta = \theta_i)$
 
 This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case.
-<!-- # Citations -->
-<!-- Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
 
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
+# Example Output 
+The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perfect}$.
 
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)" -->
+This figure provides a visual example of the empirical likelihood (bars) of the electrical conductivity assosciated with 
+positive sites (green) and negative sites (red): 
+![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png)
 
-<!-- # Figures
+The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) 
+![Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}](Scaled20Likelihood_CondLowCrust.png)
 
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% } -->
+The posterior plot of $Pr(\Theta = positive$)=0.2 are shown below
+![Posterior of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Posterior_Prior20}](Posterior_Prior20.png)
+This plot shows, given any of the conductivity bin values are observed, how likely are you in a positive (green) versus negative (red) hidden geothermal resource. In general, electrical conductivities of lower crust less than 4.5 (S-m) are more likely to be a negative geothermal site, whereas greater than 4.75 S-m the calibrated dataset show $Pr(\Theta = positive)$= 100%. 
 
 # Acknowledgements
-
 We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback. 
-We also acknowledge Drew Siler, Andres Laverde and Gabe Matson for providing case histories using the VOI App for the Geothermal Rising VOI Workshop 2024.
+We also acknowledge Drew Siler, Andres Laverde, and Gabe Matson for providing case histories using the VOI App for the Geothermal Rising VOI Workshop 2024.
 
 # References
  J. E. Faulds et al., “Discovering Blind Geothermal Systems in the Great Basin Region : An Integrated Geologic and Geophysical Approach for Establishing Geothermal Play Fairways,” 2015. [Online]. Available: https://gdr.openei.org/files/756/Faulds-DE-EE0006731-Report-v2.pdf
