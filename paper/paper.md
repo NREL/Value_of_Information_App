@@ -37,6 +37,7 @@ bibliography: paper.bib
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
 # aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
 # aas-journal: Astrophysical Journal <- The name of the AAS journal.
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 ---
 
 # Summary
@@ -94,8 +95,8 @@ The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perf
 This figure provides a visual example of the empirical likelihood (bars) of the electrical conductivity assosciated with 
 positive sites (green) and negative sites (red): 
 ![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png){ width=50% } 
-\includegraphics[width=0.7\textwidth,height=\textheight]{Likelihood_CondLowCrust.png}
 
+\includegraphics[width=0.7\textwidth,height=\textheight]{Likelihood_CondLowCrust.png}
 
 The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) 
 ![Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}](Scaled20Likelihood_CondLowCrust.png){width=50%} 
