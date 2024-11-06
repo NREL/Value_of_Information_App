@@ -68,8 +68,12 @@ of oil and gas are not familiar with decision analysis. This VOI Streamlit
 Decision Analysis requires an analysis of the expected outcome (e.g. weighted average) 
 of the decision without further information. This uses the probabilities of positive $Pr(\Theta = positive)$ and negative $Pr(\Theta = negative)$
 hidden geothermal as the weights multiplied by the value outcomes: $v_a(\Theta = \theta_i)$, the values input into the two by two table that typically represent dollar amounts. 
-
+ $V_{prior} = max_a \Sum_i^2 Pr(\Theta = \theta_i v_a(\Theta = \theta_i)$
 <!-- The prior probability $Pr(\Theta = \theta_i)$ where there are two $\theta_i)$:  $i ={negative, positve}$ -->
+Also calculated is the Value with Perfect Information: 
+ $V_{perfect} = \Sum_i^2 Pr(\Theta = \theta_i max_a v_a(\Theta = \theta_i)$
+comparing to $V_{prior}$ gives an upper bound on what *any* information could bring. 
+
 
 After the .csv files are uploaded, the code base performs a grid search on bin sizes or kde bandwidths, as documented in @trainor-guitton_voi_2023. To determine the "best" bandwidth, the data are split into training and testing sets, and the accuracy of Naive Bayes classifier is evaluated . The grid search performs the Naïve Bayes classification for 20 different bandwidths then compares the predicted class with the true class.  The bandwidth that results in the highest accuracy in Naïve Bayes is deemed the ideal bandwidth.
 
@@ -104,7 +108,8 @@ Figure sizes can be customized by adding an optional second parameter:
 
 # Acknowledgements
 
-We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback.
+We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback. 
+We also acknowledge Drew Siler, Andres Laverde and Gabe Matson for providing case histories using the VOI App for the Geothermal Rising VOI Workshop 2024.
 
 # References
  J. E. Faulds et al., “Discovering Blind Geothermal Systems in the Great Basin Region : An Integrated Geologic and Geophysical Approach for Establishing Geothermal Play Fairways,” 2015. [Online]. Available: https://gdr.openei.org/files/756/Faulds-DE-EE0006731-Report-v2.pdf
