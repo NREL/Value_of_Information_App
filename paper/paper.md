@@ -37,7 +37,7 @@ bibliography: paper.bib
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
 # aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
 # aas-journal: Astrophysical Journal <- The name of the AAS journal.
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
 ---
 
 # Summary
@@ -94,7 +94,7 @@ The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perf
 
 This figure provides a visual example of the empirical likelihood (bars) of the electrical conductivity assosciated with 
 positive sites (green) and negative sites (red): 
-![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png){ width=50% } 
+![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png){width=5cm} 
 
 \includegraphics[width=0.7\textwidth,height=\textheight]{Likelihood_CondLowCrust.png}
 
