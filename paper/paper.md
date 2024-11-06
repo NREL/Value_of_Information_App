@@ -89,17 +89,16 @@ $V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \thet
 This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case.
 
 # Example Output 
+The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perfect}$.
 
+This figure provides a visual example of the empirical likelihood (bars) of the electrical conductivity assosciated with 
+positive sites (green) and negative sites (red): 
+![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png){ width=50% } 
+The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) 
+![Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}]
 
-Figures can be included like this:
-![Caption for example figure.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png) 
-and referenced from text using \autoref{fig:Likelihood_CondLowCrust.png}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% } -->
 
 # Acknowledgements
-
 We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback. 
 We also acknowledge Drew Siler, Andres Laverde, and Gabe Matson for providing case histories using the VOI App for the Geothermal Rising VOI Workshop 2024.
 
