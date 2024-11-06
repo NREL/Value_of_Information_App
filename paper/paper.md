@@ -56,22 +56,19 @@ developing a hidden geothermal resource.
 
 # Statement of need
 
-Many geoscientists working in geothermal do not actively code.  
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+Many geoscientists working in geothermal do not actively code and those outside 
+of oil and gas are not familiar with decision analysis. This VOI Streamlit
+ App allows geoscientists to visualize the distribution of their data and calculate
+ the value of imperfect (real!) data simply by upload two comma-seperated value (.csv) files. 
+ These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
+  sites, respectively.
 
 # Mathematics
 
 The prior probability $Pr(\Theta = \theta_i)$ where there are two $\theta_i)$:  $i ={negative, positve}$
 
-Double dollars make self-standing equations:
-
+The VOI App calculates the posterior probability: 
+<!-- Double dollars make self-standing equations: -->
 $$Pr( \Theta = \theta_i | X =x_j ) = \color{cyan} \frac{Pr(\Theta = \theta_i ) 
 \color{purple} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}$$
 
@@ -83,7 +80,7 @@ and refer to \autoref{eq:fourier} from text.
 
 # Citations
 
-Citations to entries in paper.bib should be in
+<!-- Citations to entries in paper.bib should be in
 [rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
 format.
 
@@ -93,20 +90,22 @@ citation) then you can do it with the example BibTeX entry below for @fidgit.
 For a quick reference, the following citation commands can be used:
 - `@author:2001`  ->  "Author et al. (2001)"
 - `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
+- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)" -->
 
-# Figures
+<!-- # Figures
 
 Figures can be included like this:
 ![Caption for example figure.\label{fig:example}](figure.png)
 and referenced from text using \autoref{fig:example}.
 
 Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
+![Caption for example figure.](figure.png){ width=20% } -->
 
 # Acknowledgements
 
-We acknowledge contributions from Sierra Rosado during the genesis of this project.
+We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback.
 
 # References
+ J. E. Faulds et al., “Discovering Blind Geothermal Systems in the Great Basin Region : An Integrated Geologic and Geophysical Approach for Establishing Geothermal Play Fairways,” 2015. [Online]. Available: https://gdr.openei.org/files/756/Faulds-DE-EE0006731-Report-v2.pdf
+
 Howard, R. a. (1966). Information Value Theory. <i>Systems Science and Cybernetics, IEEE Transactions On</i>, <i>2</i>(1), 22–26. https://doi.org/10.1109/TSSC.1966.300074
