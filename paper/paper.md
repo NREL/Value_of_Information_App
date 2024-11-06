@@ -94,7 +94,7 @@ The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perf
 
 This figure provides a visual example of the empirical likelihood (bars) of the electrical conductivity assosciated with 
 positive sites (green) and negative sites (red): 
-![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png){width=5cm} 
+![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}][width=0.7](Likelihood_CondLowCrust.png)
 
 \includegraphics[width=0.7\textwidth,height=\textheight]{Likelihood_CondLowCrust.png}
 
@@ -102,7 +102,7 @@ The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted
 ![Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}](Scaled20Likelihood_CondLowCrust.png){width=50%} 
 
 The posterior plot of $Pr(\Theta = positive$)=0.2 are shown below
-![Posterior of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Posterior_Prior20}](Posterior_Prior20.png){ width=50% } 
+![Posterior of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Posterior_Prior20}](Posterior_Prior20.png){ width=0.5} 
 
 # Acknowledgements
 We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback. 
