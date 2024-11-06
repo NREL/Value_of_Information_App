@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 import matplotlib.pyplot as plt
+from matplotlib import colors 
 from matplotlib import ticker
 import os
 from PIL import Image
@@ -15,7 +16,11 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 #import locale
 #locale.setlocale( locale.LC_ALL, '' )
 
-import mymodule
+#import mymodule
+from User_input import st_file_selector, Prior_probability_binary, make_value_array
+from Naive_Bayes import make_train_test, optimal_bin
+from Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by_hand, Posterior_Marginal_plot, marginal, Posterior_via_NaiveBayes
+from VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
 
 # 1 made empty repository on github
 # 2 PyCharm Project from github: .py script that is github, made script & requirements.txt, commit & pushed
@@ -28,6 +33,7 @@ st.header('Interactive Demonstration of Relationship between Value of Informatio
 #Code below plots the Decision Tree image from kmenon's github
 #url = 'https://raw.githubusercontent.com/kmenon211/Geophysics-segyio-python/master/dtree.png'
 url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
+
 response = requests.get(url)
 image= Image.open(BytesIO(response.content))
 st.image(image, caption='Sample BinaryDecision Tree with Binary Geothermal Resource')
@@ -41,7 +47,7 @@ vprior_depth = np.array([1000,2000,3000,4000,5000,6000])
 
 #### start of paste  -> CHANGE to input
 count_ij = np.zeros((2,6))
-value_array, value_array_df = mymodule.make_value_array(count_ij, profit_drill_pos= 15e6, cost_drill_neg = -1e6)
+value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= 15e6, cost_drill_neg = -1e6)
 # # st.write('value_array', value_array)
 
 value_drill_DRYHOLE = np.array([-1.9e6, -2.8e6, -4.11e6, -5.81e6, -7.9e6, -10.4e6])
@@ -81,7 +87,7 @@ edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 pos_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
 # st.write('pos_outcome',pos_outcome)
 #neg = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
-value_array, value_array_df = mymodule.make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
+value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
 
 
 ## Calculate Vprior
@@ -92,13 +98,13 @@ value_array, value_array_df = mymodule.make_value_array(count_ij, profit_drill_p
 #value_drill_DRYHOLE = np.array([10.4e6, 7.9e6, 5.81e6, 4.11e6, 2.8e6, 1.9e6])
 #value_drill_DRYHOLE = np.array([-1.9e6, -2.8e6, -4.11e6, -5.81e6, -7.9e6, -10.4e6])
 
-Pr_prior_POS_demo = mymodule.Prior_probability_binary() 
+Pr_prior_POS_demo = Prior_probability_binary() 
 ## Find Min Max for the Vprior Demo plot
-vprior_INPUT_min = mymodule.f_VPRIOR([0.9,0.1], value_array, value_drill_DRYHOLE[-1])  
-vprior_INPUT_max = mymodule.f_VPRIOR([0.9,0.1], value_array, value_drill_DRYHOLE[0])   
-VPI_max = mymodule.Vperfect(Pr_prior_POS_demo, value_array,  value_drill_DRYHOLE[0])  
+vprior_INPUT_min = f_VPRIOR([0.9,0.1], value_array, value_drill_DRYHOLE[-1])  
+vprior_INPUT_max = f_VPRIOR([0.9,0.1], value_array, value_drill_DRYHOLE[0])   
+VPI_max = Vperfect(Pr_prior_POS_demo, value_array,  value_drill_DRYHOLE[0])  
 
-vprior_INPUT_demo_list = list(map(lambda vv: mymodule.f_VPRIOR([1-Pr_prior_POS_demo,Pr_prior_POS_demo], 
+vprior_INPUT_demo_list = list(map(lambda vv: f_VPRIOR([1-Pr_prior_POS_demo,Pr_prior_POS_demo], 
                                                               value_array,vv),value_drill_DRYHOLE))
 st.subheader('$Pr(Success) = Pr(Geothermal=Positive)=$'+str(Pr_prior_POS_demo))  #Pr_prior_POS_demo[0]
 st.subheader('$V_{prior} =$  best action given each weighted average')
@@ -157,7 +163,7 @@ ax1.text(np.min(vprior_depth), value_array[-1,-1]*0.7, txtonplot+'\${:0,.0f}'.fo
 # Plotting the inset axes with drilling cost curve
 
 if showVperfect:  
-    VPIlist = list(map(lambda uu: mymodule.Vperfect(Pr_prior_POS_demo, value_array,uu),value_drill_DRYHOLE))
+    VPIlist = list(map(lambda uu: Vperfect(Pr_prior_POS_demo, value_array,uu),value_drill_DRYHOLE))
     # st.write('VPI',np.array(VPIlist),vprior_INPUT_demo_list)
     VOIperfect = np.maximum((np.array(VPIlist)-np.array(vprior_INPUT_demo_list)),np.zeros(len(vprior_INPUT_demo_list)))
     # VPI_list = list(map(lambda v: mymodule.f_Vperfect(Pr_prior_POS_demo, value_array, v), value_drill_DRYHOLE))
@@ -232,7 +238,8 @@ with st.sidebar:
                     df = pd.read_csv(pos_upload_file)
             #       st.write('attribute0 is None',attribute0==None, not attribute0)
             #       if not attribute0:
-                    attribute0 = st.selectbox('Which attribute would you like to explore?', df.columns) 
+                    attribute0 = st.selectbox('Which attribute would you like to explore?', df.columns)
+                   
                     count_pos = count_pos + 1
             
             elif (uploaded_file.name[0:3]=='NEG'):
@@ -318,29 +325,33 @@ if uploaded_files is not None:
         # waiting_condition = mymodule.my_kdeplot(dfpair,x_cur,y_cur0,y_cur1,waiting_condition)
         
         # split up if we want to test bandwidth 
-        X_train, X_test, y_train, y_test = mymodule.make_train_test(dfpair,x_cur,dfpairN)
+        X_train, X_test, y_train, y_test = make_train_test(dfpair,x_cur,dfpairN)
  
-        best_params, accuracy = mymodule.optimal_bin(X_train, y_train)
+        best_params, accuracy = optimal_bin(X_train, y_train)
 
         # Likelihood via KDE estimate
-        predictedLikelihood_pos, predictedLikelihood_neg, x_sampled, count_ij= mymodule.likelihood_KDE(X_train,X_test, y_train, y_test,x_cur, best_params)
-      
+        predictedLikelihood_pos, predictedLikelihood_neg, x_sampled, count_ij= likelihood_KDE(X_train,X_test, y_train, y_test,x_cur, best_params)
+
+
+       
+
         st.write(':blue['+r'''$Pr(\Theta = \theta_i)$'''+'] in posterior')
-        Pr_prior_POS = mymodule.Prior_probability_binary('Prior used in Posterior')
+        Pr_prior_POS = Prior_probability_binary('Prior used in Posterior')
 
         st.subheader('~:blue[Prior]:point_up_2: x Likelhood :arrow_heading_up:')            
         # New plot for normalized likelihood: Modeled after Likelihood via KDE estimate
-        mymodule.Scaledlikelihood_KDE(Pr_prior_POS,predictedLikelihood_neg, predictedLikelihood_pos,X_train,X_test, y_train, y_test,x_cur,x_sampled, best_params)
+        Scaledlikelihood_KDE(Pr_prior_POS,predictedLikelihood_neg, predictedLikelihood_pos,X_train,X_test, y_train, y_test,x_cur,x_sampled, best_params)
+            
         
         st.header('How much is this imperfect data worth?')
         st.subheader(':point_down: :violet[Posterior]~:blue[Prior]:point_up_2: x Likelhood :arrow_heading_up:')
         # POSTERIOR via_Naive_Bayes: Draw back here the marginal not using scaled likelihood..
-        post_input, post_uniform = mymodule.Posterior_via_NaiveBayes(Pr_prior_POS,X_train, X_test, y_train, y_test, x_sampled, x_cur)
+        post_input, post_uniform = Posterior_via_NaiveBayes(Pr_prior_POS,X_train, X_test, y_train, y_test, x_sampled, x_cur)
              
         # # DO NOT USEmymodule.marginal( because it's passing unscaled likelihood!!!)
         # # Pr_Marg = mymodule.marginal(Pr_prior_POS, predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
-        Pr_InputMarg, Pr_UnifMarg, Prm_d_Input, Prm_d_Uniform = mymodule.Posterior_by_hand(Pr_prior_POS,predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
-        mymodule.Posterior_Marginal_plot(Prm_d_Input, Prm_d_Uniform, Pr_InputMarg, x_cur, x_sampled) # WAS inputting: post_input, post_uniform, Pr_Marg, x_cur, x_sampled)
+        Pr_InputMarg, Pr_UnifMarg, Prm_d_Input, Prm_d_Uniform = Posterior_by_hand(Pr_prior_POS,predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
+        Posterior_Marginal_plot(Prm_d_Input, Prm_d_Uniform, Pr_InputMarg, x_cur, x_sampled) # WAS inputting: post_input, post_uniform, Pr_Marg, x_cur, x_sampled)
 
         # # # # # # VALUE OUTCOMES # # # # # # # # # #
         newValuedf = pd.DataFrame({
@@ -363,24 +374,25 @@ if uploaded_files is not None:
         pos_drill_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
         neg_drill_outcome = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
 
-        value_array, value_array_df = mymodule.make_value_array(count_ij, profit_drill_pos= pos_drill_outcome, cost_drill_neg = neg_drill_outcome) # Karthik Changed here to reflect new values
+        value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_drill_outcome, cost_drill_neg = neg_drill_outcome) # Karthik Changed here to reflect new values
         #st.write('value_array', value_array)
 
         #f_VPRIOR(X_unif_prior, value_array, value_drill_DRYHOLE[-1])  
         value_drill_DRYHOLE = np.linspace(100, -1e6,10)
 
         # This function can be called with multiple values of "dry hole"
-        vprior_unif_out = mymodule.f_VPRIOR([1-Pr_prior_POS,Pr_prior_POS], value_array) #, value_drill_DRYHOLE[-1]       
+        vprior_unif_out = f_VPRIOR([1-Pr_prior_POS,Pr_prior_POS], value_array) #, value_drill_DRYHOLE[-1]       
                        
         #st.subheader(r'''$V_{prior}$ '''+'${:0,.0f}'.format(vprior_unif_out).replace('$-','-$'))
 
-        VPI = mymodule.Vperfect(Pr_prior_POS, value_array)
+        VPI = Vperfect(Pr_prior_POS, value_array)
         # st.subheader(r'''$VOI_{perfect}$ ='''+str(locale.currency(VPI, grouping=True )))
         #st.subheader('Vprior  \${:0,.0f},\t   VOIperfect = \${:0,.0f}'.format(vprior_unif_out,VPI).replace('$-','-$'))
-
+        
+        
         # VII_unif = mymodule.f_VIMPERFECT(post_uniform, value_array,Pr_UnifMarg)
-        VII_input = mymodule.f_VIMPERFECT(Prm_d_Input, value_array, Pr_InputMarg)
-        VII_unifPrior = mymodule.f_VIMPERFECT(Prm_d_Uniform, value_array, Pr_UnifMarg)
+        VII_input = f_VIMPERFECT(Prm_d_Input, value_array, Pr_InputMarg)
+        VII_unifPrior = f_VIMPERFECT(Prm_d_Uniform, value_array, Pr_UnifMarg)
         
         st.latex(r'''\color{purple} Pr( \Theta = \theta_i | X =x_j ) = \color{blue}
         \frac{Pr(\Theta = \theta_i ) \color{black} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}''')
@@ -418,7 +430,7 @@ if uploaded_files is not None:
         # st.write('with uniform marginal', locale.currency(VII_unifMarginal, grouping=True ))
         # st.write('with uniform Prior', '${:0,.0f}'.format(VII_unifPrior).replace('$-','-$'))
         
-        MI_post, NMI_post = mymodule.f_MI(Prm_d_Input,Pr_InputMarg)
+        MI_post, NMI_post = f_MI(Prm_d_Input,Pr_InputMarg)
         #Basic question: How far apart (different) are two distributions P and Q? Measured through distance & divergences
         #https://nobel.web.unc.edu/wp-content/uploads/sites/13591/2020/11/Distance-Divergence.pdf
         # st.write('Mutual Information:', MI_post)
