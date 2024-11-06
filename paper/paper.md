@@ -68,10 +68,10 @@ of oil and gas are not familiar with decision analysis. This VOI Streamlit
 Decision Analysis requires an analysis of the expected outcome (e.g. weighted average) 
 of the decision without further information. This uses the probabilities of positive $Pr(\Theta = positive)$ and negative $Pr(\Theta = negative)$
 hidden geothermal as the weights multiplied by the value outcomes: $v_a(\Theta = \theta_i)$, the values input into the two by two table that typically represent dollar amounts. 
- $V_{prior} = max_a \Sum_i^2 Pr(\Theta = \theta_i v_a(\Theta = \theta_i)$
+ $V_{prior} = \max_a \sum_i^2 Pr(\Theta = \theta_i v_a(\Theta = \theta_i)$
 <!-- The prior probability $Pr(\Theta = \theta_i)$ where there are two $\theta_i)$:  $i ={negative, positve}$ -->
 Also calculated is the Value with Perfect Information: 
- $V_{perfect} = \Sum_i^2 Pr(\Theta = \theta_i max_a v_a(\Theta = \theta_i)$
+ $V_{perfect} = \sum_i^2 Pr(\Theta = \theta_i \max_a v_a(\Theta = \theta_i)$
 comparing to $V_{prior}$ gives an upper bound on what *any* information could bring. 
 
 
