@@ -34,7 +34,9 @@ st.header('Interactive Demonstration of Relationship between Value of Informatio
 
 #Code below plots the Decision Tree image from kmenon's github
 #url = 'https://raw.githubusercontent.com/kmenon211/Geophysics-segyio-python/master/dtree.png'
-#url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
+# url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
+url = 'https://github.com/NREL/Value_of_Information_App/raw/main/File Template/dtree2.png'
+# url = 'https://github.com/wtrainor/GR_Python_Workshop/raw/main/dtree.png'
 
 #response = requests.get(url)
 #image= Image.open(BytesIO(response.content))
