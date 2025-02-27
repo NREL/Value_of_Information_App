@@ -3,4 +3,4 @@ seaborn
 numpy
 matplotlib
 scikit-learn
-git+https://github.com/NREL/GEOPHIRES-X/archive/
+git+https://github.com/NREL/GEOPHIRES-X/archive/main.zip
