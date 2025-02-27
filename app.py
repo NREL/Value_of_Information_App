@@ -10,6 +10,8 @@ from PIL import Image
 import requests
 from io import BytesIO
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from geophires_x_client import GeophiresXClient
+from geophires_x_client.geophires_input_parameters import GeophiresInputParameters
 
 # import babel.numbers
 # import decimal
@@ -32,11 +34,11 @@ st.header('Interactive Demonstration of Relationship between Value of Informatio
 
 #Code below plots the Decision Tree image from kmenon's github
 #url = 'https://raw.githubusercontent.com/kmenon211/Geophysics-segyio-python/master/dtree.png'
-url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
+#url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
 
-response = requests.get(url)
-image= Image.open(BytesIO(response.content))
-st.image(image, caption='Sample BinaryDecision Tree with Binary Geothermal Resource')
+#response = requests.get(url)
+#image= Image.open(BytesIO(response.content))
+#st.image(image, caption='Sample BinaryDecision Tree with Binary Geothermal Resource')
 
 
 vprior_depth = np.array([1000,2000,3000,4000,5000,6000])
@@ -225,6 +227,12 @@ with st.sidebar:
     if uploaded_files is not None and len(uploaded_files)==2:
         st.header('VOI APP')
         st.subheader('App Data')
+
+        st.subheader('Choose Geothermal type')
+        types = ['Electricity','Direct-Use']
+        geo_choice = st.selectbox('Which end use option do you wish to explore?', types)
+        
+
         st.subheader('Choose attribute for VOI calculation')
         
         for uploaded_file in uploaded_files:
@@ -354,10 +362,159 @@ if uploaded_files is not None:
         Posterior_Marginal_plot(Prm_d_Input, Prm_d_Uniform, Pr_InputMarg, x_cur, x_sampled) # WAS inputting: post_input, post_uniform, Pr_Marg, x_cur, x_sampled)
 
         # # # # # # VALUE OUTCOMES # # # # # # # # # #
+        Input_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter gradient and depth</p>'
+        st.markdown(Input_title, unsafe_allow_html=True)
+        inputs = pd.DataFrame({
+               "action": ['Gradient','Depth (km)'],               
+                "Values": [30,3]}   
+        )
+
+        input_df = st.data_editor(inputs,hide_index=True,use_container_width=True)
+        gradient = input_df['Values'].values[0]
+        depth = input_df['Values'].values[1]
+
+        # GEOPHIRES economics part
+        type_geo = 1
+        if (geo_choice=='Direct-Use'):
+            type_geo = 2
+        else:
+            type_geo = 1
+        client = GeophiresXClient()
+        result = client.get_geophires_result(
+                    GeophiresInputParameters({
+                        "Gradient 1": gradient,
+                        "Reservoir Depth": depth,
+                        "End-Use Option": type_geo,
+                        "Power Plant Type": "4",
+                        #"Number of Production Wells": "1",
+                        #"Number of Injection Wells": "1", Keep out for now, add in later
+                    })
+                )
+
+    
+
+        with open(result.output_file_path, 'r') as f:
+        #print(f.read())
+        #print(f.read(1500))
+            words = ['Project NPV:','Drilling and completion costs per well:']
+            
+           
+
+            lines = f.readlines()
+            
+            
+            
+            num = 31            
+            # Manually setting since word is not working
+            #for row1 in range(len(lines)):
+                ## check if string present on a current line
+                #row = lines[row1]
+                #st.write(row)
+                #word = 'Project NPV:'
+                
+                #print(row.find(word))
+                # find() method returns -1 if the value is not found,
+                # if found it returns index of the first occurrence of the substring
+                #if row.find(word) != -1:
+                    #st.write('string exists in file')
+                    #st.write('line Number:', lines.index(row))
+                    #no = lines.index(row)
+                    #no = row1
+
+            
+            npv = str(lines[num-1:num]) # Drilling and completion costs
+            npv1= npv.split(':')
+            npv1 = npv.replace(" ","")
+            npv1 = npv1.replace('\n',"")
+            npv1 = npv1.split('MUSD')
+            
+            npv2 = npv1[0:1]
+            
+            npv2 = str(npv2)
+            npvv = npv2.split(':')
+            final_npv = npvv[1:2]
+            aa = str(final_npv[0:1])
+            val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
+            val2 = (val.strip())
+     
+            val2 = float(val2)
+
+            
+            npv_final = val2*1e6
+            
+
+            num = 31            
+            # Manually setting since word is not working
+            #for row1 in range(len(lines)):
+                ## check if string present on a current line
+                #row = lines[row1]
+                #st.write(row)
+                #word = 'Project NPV:'
+                
+                #print(row.find(word))
+                # find() method returns -1 if the value is not found,
+                # if found it returns index of the first occurrence of the substring
+                #if row.find(word) != -1:
+                    #st.write('string exists in file')
+                    #st.write('line Number:', lines.index(row))
+                    #no = lines.index(row)
+                    #no = row1
+
+            # For drilling cost
+            
+            num = 94
+            npv = str(lines[num-1:num]) # Drilling and completion costs
+        
+            npv1= npv.split(':')
+            npv1 = npv.replace(" ","")
+            npv1 = npv1.replace('\n',"")
+            npv1 = npv1.split('MUSD')
+            
+            npv2 = npv1[0:1]
+            
+            npv2 = str(npv2)
+            npvv = npv2.split(':')
+            final_npv = npvv[1:2]
+            aa = str(final_npv[0:1])
+            val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
+            val2 = (val.strip())
+    
+            val2 = float(val2)
+            drill_cost = -1*val2*1e6
+
+            num = 95
+            npv = str(lines[num-1:num]) # Drilling and completion costs
+        
+            npv1= npv.split(':')
+            npv1 = npv.replace(" ","")
+            npv1 = npv1.replace('\n',"")
+            npv1 = npv1.split('MUSD')
+            
+            npv2 = npv1[0:1]
+            
+            npv2 = str(npv2)
+            npvv = npv2.split(':')
+            final_npv = npvv[1:2]
+            aa = str(final_npv[0:1])
+            val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
+            val2 = (val.strip())
+    
+            val2 = float(val2)
+            drill_cost2 = -1*val2*1e6
+            
+           
+        
+       
+        if (type_geo == 2):
+            drill_cost = drill_cost2
+        else:
+            drill_cost = drill_cost
+
+        # Table for Outcomes part with GEOPHIRES costs
         newValuedf = pd.DataFrame({
                "action": ['walk away','drill'],
-                "No Hydrothermal Resource (negative)": [0, value_array_df.iloc[1,0]*10],
-                "Hydrothermal Resource (positive)": [0,value_array_df.iloc[1,1]*10]}   
+                "No Hydrothermal Resource (negative)": [0, drill_cost], 
+                "Hydrothermal Resource (positive)": [0,npv_final]}   
         )
 
         # list = 
@@ -368,7 +525,9 @@ if uploaded_files is not None:
 
         # Code to be written to input these values
         original_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter economic values for your decision</p>'
+        
         st.markdown(original_title, unsafe_allow_html=True)
+        st.write("Default values are based on GEOPHIRES results for gradient and depth (user input)")
         edited_df = st.data_editor(newValuedf,hide_index=True,use_container_width=True)
 
         pos_drill_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
