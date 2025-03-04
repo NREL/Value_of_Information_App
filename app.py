@@ -13,27 +13,17 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from geophires_x_client import GeophiresXClient
 from geophires_x_client.geophires_input_parameters import GeophiresInputParameters
 
-# import babel.numbers
-# import decimal
-#import locale
-#locale.setlocale( locale.LC_ALL, '' )
 
-#import mymodule
 from User_input import st_file_selector, Prior_probability_binary, make_value_array
 from Naive_Bayes import make_train_test, optimal_bin
 from Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by_hand, Posterior_Marginal_plot, marginal, Posterior_via_NaiveBayes
 from VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
 
-# 1 made empty repository on github
-# 2 PyCharm Project from github: .py script that is github, made script & requirements.txt, commit & pushed
-# 3 Log into streamlit, and app is there...
-
 # PRIORS - > USER INPUT
 st.header('Interactive Demonstration of Relationship between Value of Information and Prior Value')
 
 
-#Code below plots the Decision Tree image from kmenon's github
-#url = 'https://raw.githubusercontent.com/kmenon211/Geophysics-segyio-python/master/dtree.png'
+#Code below plots the Decision Tree image from github
 # url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
 url = 'https://github.com/NREL/Value_of_Information_App/raw/main/File Template/dtree2.png'
 # url = 'https://github.com/wtrainor/GR_Python_Workshop/raw/main/dtree.png'
@@ -42,25 +32,24 @@ url = 'https://github.com/NREL/Value_of_Information_App/raw/main/File Template/d
 #image= Image.open(BytesIO(response.content))
 #st.image(image, caption='Sample BinaryDecision Tree with Binary Geothermal Resource')
 
-
 vprior_depth = np.array([1000,2000,3000,4000,5000,6000])
 
 #st.write('What\'s the Prior Probability of a POSITIVE geothermal site?  $Pr(x=Positive)$')
 #Pr_prior_POS_demo = mymodule.Prior_probability_binary() 
 
 
-#### start of paste  -> CHANGE to input
+#### Value versus depth plot
 count_ij = np.zeros((2,6))
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= 15e6, cost_drill_neg = -1e6)
 # # st.write('value_array', value_array)
-
+#Assigning values that match GEOPHIRES drilling costs.
 value_drill_DRYHOLE = np.array([-1.9e6, -2.8e6, -4.11e6, -5.81e6, -7.9e6, -10.4e6])
 
 vprior_depth = np.array([1000,2000,3000,4000,5000,6000])
 
 firstfig, ax = plt.subplots()
 #firstfig1, axe = plt.subplots(1,2)
-plt.plot(vprior_depth,value_drill_DRYHOLE,'g.-', linewidth=5,label='$V_{prior}$')#, color = 'red')
+plt.plot(vprior_depth,value_drill_DRYHOLE,'g.-', linewidth=5,label='$V_{prior}$')
 plt.ylabel(r'Average Drilling Cost [\$]',fontsize=14)
 plt.xlabel('Depth (m)', color='darkred',fontsize=14)
 formatter = ticker.ScalarFormatter()
@@ -71,7 +60,7 @@ ax.xaxis.set_major_formatter(formatter)
 ax.xaxis.set_major_formatter('{x:0,.0f}')
 
 
-# Code for table with decision outcomes defined by the user.
+# Code for table with decision economic outcomes defined by the user.
 newValuedf1 = pd.DataFrame({
                "action": ['walk away','drill'],               
                 "Hydrothermal Resource (positive)": [0,value_array_df.iloc[1,1]*10]}   
@@ -95,12 +84,6 @@ value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_o
 
 
 ## Calculate Vprior
-#f_VPRIOR(X_unif_prior, value_array, value_drill_DRYHOLE[-1])  
-#value_drill_DRYHOLE = np.linspace(100, -1e6,10)
-#Assigning values that match GEOPHIRES drilling costs.
-
-#value_drill_DRYHOLE = np.array([10.4e6, 7.9e6, 5.81e6, 4.11e6, 2.8e6, 1.9e6])
-#value_drill_DRYHOLE = np.array([-1.9e6, -2.8e6, -4.11e6, -5.81e6, -7.9e6, -10.4e6])
 
 Pr_prior_POS_demo = Prior_probability_binary() 
 ## Find Min Max for the Vprior Demo plot
