@@ -325,7 +325,7 @@ if uploaded_files is not None:
         Input_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter gradient and depth</p>'
         st.markdown(Input_title, unsafe_allow_html=True)
         inputs = pd.DataFrame({
-               "action": ['Gradient','Depth (km)'],               
+               "action": ['Gradient [C/km]','Depth [km]'],               
                 "Values": [30,3]}   
         )
 
