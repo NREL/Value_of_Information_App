@@ -388,6 +388,18 @@ if uploaded_files is not None:
                         "Reservoir Depth": depth,
                         "End-Use Option": type_geo,
                         "Power Plant Type": "4",
+                        "Economic Model": "3",
+                        "Starting Electricity Sale Price": "0.15",
+                        "Ending Electricity Sale Price": "1.00",
+                        #"Reservoir Heat Capacity": "790",
+                        #"Reservoir Thermal Conductivity": "3.05",
+                        #"Reservoir Porosity": "0.0118",
+                        #"Reservoir Impedance": "0.01",
+                        #"Number of Fractures": "108",
+                        #"Fracture Shape": "4",
+                        #"Fracture Height": "300",
+                        #"Fracture Width": "400",
+                        #"Fracture Separation": "30",
                         #"Number of Production Wells": "1",
                         #"Number of Injection Wells": "1", Keep out for now, add in later
                     })
@@ -406,7 +418,7 @@ if uploaded_files is not None:
             
             
             
-            num = 31            
+            num = 30            
             # Manually setting since word is not working
             #for row1 in range(len(lines)):
                 ## check if string present on a current line
@@ -464,7 +476,7 @@ if uploaded_files is not None:
 
             # For drilling cost
             
-            num = 94
+            num = 93 # Change to 95 in new one
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')
@@ -484,7 +496,7 @@ if uploaded_files is not None:
             val2 = float(val2)
             drill_cost = -1*val2*1e6
 
-            num = 95
+            num = 94
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')

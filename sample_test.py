@@ -19,19 +19,27 @@ from VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
 
 
 def Prior():
+    '''
+        Test function to ensure that prior is between [0,1].
+    '''
     pro = Prior_probability_binary()
     return pro
 
 def psum(prior):
-    url = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\POS_Walker_INGENIOUS.csv"
-    #pos_file = requests.get(url).content
+    '''
+        Test function to ensure that area under curve for probability distributions (likelihood and posterior) sum to 1.
+    '''
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/POS_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    pos_file = requests.get(url).content
 
 
-    url1 = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\NEG_Walker_INGENIOUS.csv"
-    #neg_file = requests.get(url).content
-    df = pd.read_csv(url)
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/NEG_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    neg_file = requests.get(url).content
+    df = pd.read_csv(io.StringIO(pos_file.decode('utf-8')))
 
-    dfN = pd.read_csv(url1)
+    dfN = pd.read_csv(io.StringIO(neg_file.decode('utf-8')))
     attribute  = df.columns[7] # Randomly choosing one. If the use wishes to choose one manually, change the code here
 
     df_sc = df[df[attribute]>-9999]
@@ -64,15 +72,20 @@ def psum(prior):
     return (pos_like_sum + neg_like_sum + marg_sum)
 
 def dist1():
-    url = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\POS_Walker_INGENIOUS.csv"
-    #pos_file = requests.get(url).content
+    '''
+        Test function to ensure that distances to labels are positive.
+    '''
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/POS_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    pos_file = requests.get(url).content
 
 
-    url1 = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\NEG_Walker_INGENIOUS.csv"
-    #neg_file = requests.get(url).content
-    df = pd.read_csv(url)
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/NEG_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    neg_file = requests.get(url).content
+    df = pd.read_csv(io.StringIO(pos_file.decode('utf-8')))
 
-    dfN = pd.read_csv(url1)
+    dfN = pd.read_csv(io.StringIO(neg_file.decode('utf-8')))
 
     pos = df['PosSite_Distance'].min()
     neg = dfN['NegSite_Distance'].min()
@@ -80,15 +93,20 @@ def dist1():
     return pos
 
 def dist2():
-    url = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\POS_Walker_INGENIOUS.csv"
-    #pos_file = requests.get(url).content
+    '''
+        Test function to ensure that distances to labels are positive.
+    '''
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/POS_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    pos_file = requests.get(url).content
 
 
-    url1 = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\NEG_Walker_INGENIOUS.csv"
-    #neg_file = requests.get(url).content
-    df = pd.read_csv(url)
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/NEG_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    neg_file = requests.get(url).content
+    df = pd.read_csv(io.StringIO(pos_file.decode('utf-8')))
 
-    dfN = pd.read_csv(url1)
+    dfN = pd.read_csv(io.StringIO(neg_file.decode('utf-8')))
 
     pos = df['PosSite_Distance'].min()
     neg = dfN['NegSite_Distance'].min()
@@ -96,17 +114,23 @@ def dist2():
     return neg
 
 def VOI(prior):
-
+    '''
+        Test function to ensure that Value of information metrics align with mathematical constraints.
+        First Check is to ensure that VOI is > 0.
+        Second check is to ensure that Value of Perfect Information is greater than Value of Imperfect Information.
+    '''
     Pr_prior_POS = prior
-    url = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\POS_Walker_INGENIOUS.csv"
-    #pos_file = requests.get(url).content
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/POS_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    pos_file = requests.get(url).content
 
 
-    url1 = "C:\\Users\\kmenon\\Documents\\INGENIOUS_Data\\Actual_INGENIOUS_csvs_for_AOI_App\\NEG_Walker_INGENIOUS.csv"
-    #neg_file = requests.get(url).content
-    df = pd.read_csv(url)
+    url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/NEG_COMBINED_NEW_JULYRESID_INGENIOUS_updated.csv'
+    url = url.replace(" ", "%20")
+    neg_file = requests.get(url).content
+    df = pd.read_csv(io.StringIO(pos_file.decode('utf-8')))
 
-    dfN = pd.read_csv(url1)
+    dfN = pd.read_csv(io.StringIO(neg_file.decode('utf-8')))
     attribute  = df.columns[7] # Randomly choosing one. If the use wishes to choose one manually, change the code here
 
     df_sc = df[df[attribute]>-9999]
