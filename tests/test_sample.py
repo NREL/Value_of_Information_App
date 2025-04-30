@@ -3,6 +3,7 @@ import pytest
 import pandas as pd
 import numpy as np
 import time
+%matplotlib inline
 import matplotlib.pyplot as plt
 from matplotlib import ticker
 import os
