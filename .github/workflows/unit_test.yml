@@ -34,7 +34,7 @@ jobs:
         python -m pip install -r requirements.txt
         python -m pip install pytest
         python -m pip install requests
-        python -m pip install -e
+        python -m pip install -e .
     - name: Run pytest
       run: |
         python -m pytest -v --disable-warnings
