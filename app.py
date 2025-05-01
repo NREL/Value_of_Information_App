@@ -366,9 +366,9 @@ if uploaded_files is not None:
             lines = f.readlines()
             
             
-            
-            num = 31            
-            # Manually setting since word is not working
+
+            num = 30            
+            # Manually setting since parsing is not working
             #for row1 in range(len(lines)):
                 ## check if string present on a current line
                 #row = lines[row1]
@@ -425,7 +425,7 @@ if uploaded_files is not None:
 
             # For drilling cost
             
-            num = 94
+            num = 93
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')
@@ -445,7 +445,7 @@ if uploaded_files is not None:
             val2 = float(val2)
             drill_cost = -1*val2*1e6
 
-            num = 95
+            num = 94
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')
