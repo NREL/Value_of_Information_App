@@ -346,6 +346,9 @@ if uploaded_files is not None:
                         "Reservoir Depth": depth,
                         "End-Use Option": type_geo,
                         "Power Plant Type": "4",
+                        "Economic Model": "3",
+                        "Starting Electricity Sale Price": "0.15",
+                        "Ending Electricity Sale Price": "1.00",
                         #"Number of Production Wells": "1",
                         #"Number of Injection Wells": "1", Keep out for now, add in later
                     })
