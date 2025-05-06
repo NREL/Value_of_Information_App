@@ -349,6 +349,16 @@ if uploaded_files is not None:
                         "Economic Model": "3",
                         "Starting Electricity Sale Price": "0.15",
                         "Ending Electricity Sale Price": "1.00",
+
+                        #"Reservoir Heat Capacity": "790",
+                        #"Reservoir Thermal Conductivity": "3.05",
+                        #"Reservoir Porosity": "0.0118",
+                        #"Reservoir Impedance": "0.01",
+                        #"Number of Fractures": "108",
+                        #"Fracture Shape": "4",
+                        #"Fracture Height": "300",
+                        #"Fracture Width": "400",
+                        #"Fracture Separation": "30",
                         #"Number of Production Wells": "1",
                         #"Number of Injection Wells": "1", Keep out for now, add in later
                     })
@@ -367,8 +377,13 @@ if uploaded_files is not None:
             
             
 
+            
+            
+
+
             num = 30            
             # Manually setting since parsing is not working
+
             #for row1 in range(len(lines)):
                 ## check if string present on a current line
                 #row = lines[row1]
@@ -424,8 +439,10 @@ if uploaded_files is not None:
                     #no = row1
 
             # For drilling cost
-            
-            num = 93
+           
+            num = 93 # Change to 95 in new one
+
+
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')
