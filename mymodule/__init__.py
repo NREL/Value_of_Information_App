@@ -1,1 +1,0 @@
-from mymodule.code import *

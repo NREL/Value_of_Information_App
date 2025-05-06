@@ -13,27 +13,17 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from geophires_x_client import GeophiresXClient
 from geophires_x_client.geophires_input_parameters import GeophiresInputParameters
 
-# import babel.numbers
-# import decimal
-#import locale
-#locale.setlocale( locale.LC_ALL, '' )
 
-#import mymodule
 from User_input import st_file_selector, Prior_probability_binary, make_value_array
 from Naive_Bayes import make_train_test, optimal_bin
-from Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by_hand, Posterior_Marginal_plot, marginal, Posterior_via_NaiveBayes
+from Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by_hand, Posterior_Marginal_plot, Posterior_via_NaiveBayes
 from VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
-
-# 1 made empty repository on github
-# 2 PyCharm Project from github: .py script that is github, made script & requirements.txt, commit & pushed
-# 3 Log into streamlit, and app is there...
 
 # PRIORS - > USER INPUT
 st.header('Interactive Demonstration of Relationship between Value of Information and Prior Value')
 
 
-#Code below plots the Decision Tree image from kmenon's github
-#url = 'https://raw.githubusercontent.com/kmenon211/Geophysics-segyio-python/master/dtree.png'
+#Code below plots the Decision Tree image from github
 # url = 'https://github.com/wtrainor/INGENIOUS_streamlit/raw/main/File Template/dtree2.png'
 url = 'https://github.com/NREL/Value_of_Information_App/raw/main/File Template/dtree2.png'
 # url = 'https://github.com/wtrainor/GR_Python_Workshop/raw/main/dtree.png'
@@ -42,25 +32,24 @@ url = 'https://github.com/NREL/Value_of_Information_App/raw/main/File Template/d
 #image= Image.open(BytesIO(response.content))
 #st.image(image, caption='Sample BinaryDecision Tree with Binary Geothermal Resource')
 
-
 vprior_depth = np.array([1000,2000,3000,4000,5000,6000])
 
 #st.write('What\'s the Prior Probability of a POSITIVE geothermal site?  $Pr(x=Positive)$')
 #Pr_prior_POS_demo = mymodule.Prior_probability_binary() 
 
 
-#### start of paste  -> CHANGE to input
+#### Value versus depth plot
 count_ij = np.zeros((2,6))
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= 15e6, cost_drill_neg = -1e6)
 # # st.write('value_array', value_array)
-
+#Assigning values that match GEOPHIRES drilling costs.
 value_drill_DRYHOLE = np.array([-1.9e6, -2.8e6, -4.11e6, -5.81e6, -7.9e6, -10.4e6])
 
 vprior_depth = np.array([1000,2000,3000,4000,5000,6000])
 
 firstfig, ax = plt.subplots()
 #firstfig1, axe = plt.subplots(1,2)
-plt.plot(vprior_depth,value_drill_DRYHOLE,'g.-', linewidth=5,label='$V_{prior}$')#, color = 'red')
+plt.plot(vprior_depth,value_drill_DRYHOLE,'g.-', linewidth=5,label='$V_{prior}$')
 plt.ylabel(r'Average Drilling Cost [\$]',fontsize=14)
 plt.xlabel('Depth (m)', color='darkred',fontsize=14)
 formatter = ticker.ScalarFormatter()
@@ -71,7 +60,7 @@ ax.xaxis.set_major_formatter(formatter)
 ax.xaxis.set_major_formatter('{x:0,.0f}')
 
 
-# Code for table with decision outcomes defined by the user.
+# Code for table with decision economic outcomes defined by the user.
 newValuedf1 = pd.DataFrame({
                "action": ['walk away','drill'],               
                 "Hydrothermal Resource (positive)": [0,value_array_df.iloc[1,1]*10]}   
@@ -84,7 +73,7 @@ newValuedf1.style.set_properties(**{'font-size': '35pt'}) # this doesn't seem to
  #bigdf.style.background_gradient(cmap, axis=1)\
 
 # Code to input these values
-original_title = '<p style="font-family:Courier; color:Black; font-size: 30px;"> Enter economic values for your decision</p>'
+original_title = '<p style="font-family:Courier; color:Black; font-size: 30px;"> Enter economic values for your decision [$] </p>'
 st.markdown(original_title, unsafe_allow_html=True)
 edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 
@@ -95,13 +84,6 @@ value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_o
 
 
 ## Calculate Vprior
-#f_VPRIOR(X_unif_prior, value_array, value_drill_DRYHOLE[-1])  
-#value_drill_DRYHOLE = np.linspace(100, -1e6,10)
-#Assigning values that match GEOPHIRES drilling costs.
-
-#value_drill_DRYHOLE = np.array([10.4e6, 7.9e6, 5.81e6, 4.11e6, 2.8e6, 1.9e6])
-#value_drill_DRYHOLE = np.array([-1.9e6, -2.8e6, -4.11e6, -5.81e6, -7.9e6, -10.4e6])
-
 Pr_prior_POS_demo = Prior_probability_binary() 
 ## Find Min Max for the Vprior Demo plot
 vprior_INPUT_min = f_VPRIOR([0.9,0.1], value_array, value_drill_DRYHOLE[-1])  
@@ -110,53 +92,44 @@ VPI_max = Vperfect(Pr_prior_POS_demo, value_array,  value_drill_DRYHOLE[0])
 
 vprior_INPUT_demo_list = list(map(lambda vv: f_VPRIOR([1-Pr_prior_POS_demo,Pr_prior_POS_demo], 
                                                               value_array,vv),value_drill_DRYHOLE))
-st.subheader('$Pr(Success) = Pr(Geothermal=Positive)=$'+str(Pr_prior_POS_demo))  #Pr_prior_POS_demo[0]
-st.subheader('$V_{prior} =$  best action given each weighted average')
+# first_sub = '<p style="font-family:Courier; color:Black; font-size: 30px;"> $Pr(Success) = Pr(Geothermal=Positive)=$</p>'
+# +str(Pr_prior_POS_demo) 
+# st.markdown(first_sub, unsafe_allow_html=True)
+st.latex(r'''Pr(Success) = Pr(Geothermal=Positive)='''+str(Pr_prior_POS_demo), help='Set with slider above')  
+st.write('$V_{prior} =$  best action given each weighted average')
 # st.markdown("""
 # <style>
 # .big-latex {
-#     font-size:60px !important;
+#     font-size:80px !important;
+#     font-family:Courier;
 # }
-# </style>
-# """, unsafe_allow_html=True)
+# </style>""", unsafe_allow_html=True)
 
 #st.write('Average outcome, using $Pr(Success)$ ~ Prior probability')
 # st.write(r'''$V_{prior} =  \max\limits_a \Sigma_{i=1}^2 Pr(\Theta = \theta_i)  v_a(\theta_i) \ \  \forall a $''')
-#stuff = '''$V_{prior}=$'''
-#st.markdown(stuff, unsafe_allow_html=True) #'<p class="big-latex"> stuff </p>'
-st.write(r'''$V_{prior} = \max\limits_a 
-            \begin{cases} Pr(positive) v_{drill}(positive) + Pr(negative)  v_{drill}(negative) &\text{if drill}\\
-            Pr(positive) v_{nothing}(positive) + Pr(negative)  v_{nothing}(negative)  =0         &\text{if do nothing}\end{cases} $''')
-#
-# st.latex(r'''x = \begin{cases}
-#    a &\text{if } b \\
-#    c &\text{if } d \\
-# \end{cases}''')
+stuff = '''$V_{prior}=$'''
+st.markdown(stuff, unsafe_allow_html=True) #'<p class="big-latex"> stuff </p>'
+st.latex(r''' \max\limits_a 
+            \begin{cases}
+            
+            Pr(positive) v_{drill}(positive) + Pr(negative)  v_{drill}(negative)             &\text{if a=drill} \\
+            &\ \\
+            Pr(positive) v_{nothing}(positive) + Pr(negative)  v_{nothing}(negative)  =0     &\text{if do a=nothing}
+            \end{cases} ''')
+
          
-# st.write(r'''$\Theta$ =  Uncertain geologic parameter, $\theta_1$ = positive geothermal state, $\theta_2$ = negative geothermal state''')
-# st.write(r'''$a =$  Action being taken (e.g. drill or do nothing)''')
-#
-
-# axins3 = inset_axes(ax, width="30%", height="30%", loc=2)
-#st.write(np.mean(vprior_INPUT_demo_list), np.min(value_drill_DRYHOLE),(VPI_max+20))
-
 # Plotting VOI
 showVperfect = st.checkbox('Show Vperfect')
 
 # Plotting Depth vs Value of Information
-
 #showVperfect2 = st.checkbox('Show Vperfect')
 firstfig2, ax1 = plt.subplots() # Plotting the VOI figure
-
 
 ax1.plot(vprior_depth, vprior_INPUT_demo_list, 'g.-', linewidth=5,label='$V_{prior}$')
 plt.ylabel(r'Average Outcome Value [\$]',fontsize=14)
 plt.xlabel('Well Depth (m)', color='darkred',fontsize=14)
 
-
-
 # Plotting text on the VOI plot
-
 txtonplot = r'$v_{a=Drill}(\Theta=Positive) =$'
 ax1.text(np.min(vprior_depth), value_array[-1,-1]*0.7, txtonplot+'\${:0,.0f}'.format(value_array[-1,-1]), 
         size=12, color='green',
@@ -202,9 +175,7 @@ axins1.yaxis.set_major_formatter('${x:0,.0e}') #:0,.0f
 axins1.xaxis.set_major_formatter(formatter)
 axins1.xaxis.set_major_formatter('{x:0,.0f}')
 
-
-
-#Code below plots the VOI plot
+#Show the VOI plot
 st.pyplot(firstfig2)
 
 if showVperfect:  
@@ -214,11 +185,14 @@ if showVperfect:
     st.write(r'''$VOI_{perfect} (Value \ of \ Information) = V_{perfect}-V_{prior}=$'''+str(VPIlist[0])+' - '+str(vprior_INPUT_demo_list[0]))
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True) # Code to draw line to separate demo problem from main part
+
+
+# Sidebar is where user picks data file
 with st.sidebar:
     attribute0 = None        
     # LOCATION OF THIS FILE 
     
-    st.page_link("https://github.com/wtrainor/INGENIOUS_streamlit/tree/main?tab=readme-ov-file#format-of-csv-files",\
+    st.page_link("https://github.com/NREL/Value_of_Information_App/tree/main/File%20Template",\
                  label=':orange-background[**Click here:\n file templates & examples**]',icon=":material/question_exchange:")
     uploaded_files = st.file_uploader(\
         "Upload two data files,namely a Positive Label file (\'POS_\' :fire:) & a Negative Label (\'NEG_\':thumbsdown:) file ", \
@@ -266,8 +240,6 @@ with st.sidebar:
                     st.write('You didn\'t select a NEG file, try again')
 
                 
-        
-
         if pos_upload_file.name[3:7] != neg_upload_file.name[3:7]:
                 st.write('You aren\'t comparing data from the same region. STOP!')
         else:        
@@ -283,8 +255,7 @@ with st.sidebar:
         st.write('please upload file')
 
 
-# uploaded_fileNEG = st.file_uploader("Choose a NEG file",type=['csv'])
-#st.write('uploaded_files==None attribute0==None', uploaded_files==None)
+# Compute Value of IMPERFECT information (VOIimperfect) with uploaded data
 if uploaded_files is not None:
     st.title('Main App: ')
              
@@ -294,15 +265,6 @@ if uploaded_files is not None:
 
         x_cur = attribute0
     
-        # screen_att0 ='PosSite_Di'
-        # screen_att1 ='NegSite_Di'
-        # if any(df.columns.str.contains('GeodeticStrainRate')):
-        #     y_cur0 = 'GeodeticStrainRate'  # hard code for now will come from multiselect
-        # elif any(df.columns.str.contains('geod_2ndinv_conus117_250m')):
-        #     y_cur0 = 'geod_2ndinv_conus117_250m'
-        # else:
-        #     st.print('no know strain in df')
-
         df_screen = df[df[x_cur]>-9999]
         df_screenN = dfN[dfN[x_cur]>-9999]
         #st.write('dataframe is shape: {thesize}'.format(thesize=df_screenN.shape))
@@ -341,10 +303,7 @@ if uploaded_files is not None:
 
         # Likelihood via KDE estimate
         predictedLikelihood_pos, predictedLikelihood_neg, x_sampled, count_ij= likelihood_KDE(X_train,X_test, y_train, y_test,x_cur, best_params)
-
-
-       
-
+     
         st.write(':blue['+r'''$Pr(\Theta = \theta_i)$'''+'] in posterior')
         Pr_prior_POS = Prior_probability_binary('Prior used in Posterior')
 
@@ -352,13 +311,12 @@ if uploaded_files is not None:
         # New plot for normalized likelihood: Modeled after Likelihood via KDE estimate
         Scaledlikelihood_KDE(Pr_prior_POS,predictedLikelihood_neg, predictedLikelihood_pos,X_train,X_test, y_train, y_test,x_cur,x_sampled, best_params)
             
-        
         st.header('How much is this imperfect data worth?')
         st.subheader(':point_down: :violet[Posterior]~:blue[Prior]:point_up_2: x Likelhood :arrow_heading_up:')
         # POSTERIOR via_Naive_Bayes: Draw back here the marginal not using scaled likelihood..
         post_input, post_uniform = Posterior_via_NaiveBayes(Pr_prior_POS,X_train, X_test, y_train, y_test, x_sampled, x_cur)
              
-        # # DO NOT USEmymodule.marginal( because it's passing unscaled likelihood!!!)
+        # # DO NOT USE mymodule.marginal( because it's passing unscaled likelihood!!!)
         # # Pr_Marg = mymodule.marginal(Pr_prior_POS, predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
         Pr_InputMarg, Pr_UnifMarg, Prm_d_Input, Prm_d_Uniform = Posterior_by_hand(Pr_prior_POS,predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
         Posterior_Marginal_plot(Prm_d_Input, Prm_d_Uniform, Pr_InputMarg, x_cur, x_sampled) # WAS inputting: post_input, post_uniform, Pr_Marg, x_cur, x_sampled)
@@ -367,7 +325,7 @@ if uploaded_files is not None:
         Input_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter gradient and depth</p>'
         st.markdown(Input_title, unsafe_allow_html=True)
         inputs = pd.DataFrame({
-               "action": ['Gradient','Depth (km)'],               
+               "action": ['Gradient [C/km]','Depth [km]'],               
                 "Values": [30,3]}   
         )
 
@@ -391,6 +349,7 @@ if uploaded_files is not None:
                         "Economic Model": "3",
                         "Starting Electricity Sale Price": "0.15",
                         "Ending Electricity Sale Price": "1.00",
+
                         #"Reservoir Heat Capacity": "790",
                         #"Reservoir Thermal Conductivity": "3.05",
                         #"Reservoir Porosity": "0.0118",
@@ -417,9 +376,14 @@ if uploaded_files is not None:
             lines = f.readlines()
             
             
+
             
+            
+
+
             num = 30            
-            # Manually setting since word is not working
+            # Manually setting since parsing is not working
+
             #for row1 in range(len(lines)):
                 ## check if string present on a current line
                 #row = lines[row1]
@@ -475,8 +439,10 @@ if uploaded_files is not None:
                     #no = row1
 
             # For drilling cost
-            
+           
             num = 93 # Change to 95 in new one
+
+
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')
