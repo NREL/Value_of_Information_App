@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>paper.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<hr>
+<p>title: 'Value of Information: A Streamlit Python for geothermal exploration'
+tags:</p>
+<ul>
+<li>Decision Analysis</li>
+<li>Bayesian statistics</li>
+<li>Python</li>
+</ul>
+<p>authors:</p>
+<ul>
+<li>name: Whitney J. Trainor-Guitton
+orcid: 0000-0002-5726-3886
+equal-contrib: false
+affiliation: &quot;1&quot; # (Multiple affiliations must be quoted)
+name: Karthik Menon (Author Without ORCID)
+equal-contrib: false # (This is how you can denote equal contributions between multiple authors)
+affiliation: 1</li>
+</ul>
+<h1 id="name-sierra-rosario-author-without-orcid">- name: Sierra Rosario (Author Without ORCID)</h1>
+<h1 id="equal-contrib-false--this-is-how-you-can-denote-equal-contributions-between-multiple-authors">equal-contrib: false # (This is how you can denote equal contributions between multiple authors)</h1>
+<h1 id="affiliation-2">affiliation: 2</h1>
+<h1 id="name-author-with-no-affiliation">- name: Author with no affiliation</h1>
+<h1 id="corresponding-true--this-is-how-to-denote-the-corresponding-author">corresponding: true # (This is how to denote the corresponding author)</h1>
+<h1 id="affiliation-3">affiliation: 3</h1>
+<h1 id="given-names-ludwig">- given-names: Ludwig</h1>
+<h1 id="dropping-particle-van">dropping-particle: van</h1>
+<h1 id="surname-beethoven">surname: Beethoven</h1>
+<h1 id="affiliation-3">affiliation: 3</h1>
+<p>affiliations:</p>
+<ul>
+<li>name: National Renewable Energy Laboratory, USA
+index: 1</li>
+</ul>
+<h1 id="name-amherst-university-usa">- name: Amherst University, USA</h1>
+<h1 id="index-2">index: 2</h1>
+<h1 id="name-independent-researcher-country">- name: Independent Researcher, Country</h1>
+<h1 id="index-3">index: 3</h1>
+<p>date: November 2024
+bibliography: paper.bib</p>
+<h1 id="optional-fields-if-submitting-to-a-aas-journal-too-see-this-blog-post">Optional fields if submitting to a AAS journal too, see this blog post:</h1>
+<h1 id="httpsblogjosstheojorg201812a-new-collaboration-with-aas-publishing">https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing</h1>
+<h1 id="aas-doi-103847xxxxx---update-this-with-the-doi-from-aas-once-you-know-it">aas-doi: 10.3847/xxxxx &lt;- update this with the DOI from AAS once you know it.</h1>
+<h1 id="aas-journal-astrophysical-journal---the-name-of-the-aas-journal">aas-journal: Astrophysical Journal &lt;- The name of the AAS journal.</h1>
+<hr>
+<h1 id="summary">Summary</h1>
+<p>The Geothermal VOI App reveals which data types best distinguish between a
+hidden conventional geothermal resource and no geothermal resource. Hidden
+geothermal resources are geothermal resources that do not show any evidence
+of existence on the surface, thus geophysical and geological observations
+are used to make estimates of subsurface conditions. None of the the data
+layers are direct evidence of heat, permeability and fluids, therefore
+they are imperect indicators [@faulds_discovering_2015]. The value of information (VOI) metric
+attempts to quantify how useful specific information types are
+by quantifying their reliability and how it may help or hinder with decisions [@howard_information_1966].
+VOI is from the field of decision analysis and assess if the information will
+improve the average outcome of a decision made under uncertainty, like
+developing a hidden geothermal resource.</p>
+<h1 id="statement-of-need">Statement of need</h1>
+<p>Many geoscientists working in geothermal do not actively code and those outside
+of oil and gas are not familiar with decision analysis. This VOI Streamlit
+App allows geoscientists to visualize the distribution of their data and calculate
+the value of imperfect (real!) data simply by upload two comma-seperated value (.csv) files.
+These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
+sites, respectively.</p>
+<h1 id="mathematics">Mathematics</h1>
+<p>Decision Analysis requires an analysis of the expected outcome (e.g. weighted average)
+of the decision without further information. This uses the probabilities of positive $Pr(\Theta = positive)$ and negative $Pr(\Theta = negative)$
+hidden geothermal as the weights multiplied by the value outcomes: $v_a(\Theta = \theta_i)$, the values input into the two by two table that typically represent dollar amounts.  <br />
+$V_{prior} = \max\limits_a \sum_i^2 Pr(\Theta = \theta_i) v_a(\Theta = \theta_i)$</p>
+<!-- The prior probability $Pr(\Theta = \theta_i)$ where there are two $\theta_i)$:  $i ={negative, positve}$ -->
+<p>Also calculated is the Value with Perfect Information:  <br />
+$V_{perfect} = \sum_i^2 Pr(\Theta = \theta_i) \max\limits_a v_a(\Theta = \theta_i)$</p>
+  <!-- \Sigma_{i=1}^2 Pr(\Theta = \theta_i) \max\limits_a v_a(\theta_i) \ \  \forall a  -->
+<p>comparing to $V_{prior}$ gives an upper bound on what <em>any</em> information could bring or the value <em>of</em> perfect information ($VOI_{perfect}$): <br>
+$VOI_{perfect} = V_{perfect}- V_{prior}$</p>
+<p>After the .csv files are uploaded, the code base performs a grid search on bin sizes ($x_j$) or kde bandwidths, as documented in @trainor-guitton_voi_2023. To determine the &quot;best&quot; bandwidth, the data are split into training and testing sets, and the accuracy of Naïve Bayes classifier is evaluated . The grid search performs the Naïve Bayes classification for 20 different bandwidths then compares the predicted class with the true class.  The bandwidth that results in the highest accuracy in Naïve Bayes is deemed the ideal bandwidth.</p>
+<p>Next, the VOI App calculates the posterior probability:</p>
+<!-- Double dollars make self-standing equations: -->
+<p>$$Pr( \Theta = \theta_i | X =x_j ) = \color{cyan} \frac{Pr(\Theta = \theta_i )
+\color{purple} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}$$ <br>
+which scales the &quot;ideal&quot; likelihood from the grid search with the user-entered prior probability of success ($\Theta = \theta_i$).
+The posterior replaces the prior to become the weight in the value <em>with</em> imperfect information: <br>
+$V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \theta_i | X=x_j)  v_a(\Theta = \theta_i)$</p>
+<p>This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case.</p>
+<h1 id="example-output">Example Output</h1>
+<p>The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perfect}$.</p>
+<p>This figure provides a visual example of the empirical likelihood (bars) of the electrical conductivity assosciated with
+positive sites (green) and negative sites (red):
+<img src="Likelihood_CondLowCrust.png" alt="Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}"></p>
+<p>The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2)
+<img src="Scaled20Likelihood_CondLowCrust.png" alt="Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}"></p>
+<p>The posterior plot of $Pr(\Theta = positive$)=0.2 are shown below
+<img src="Posterior_Prior20.png" alt="Posterior of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Posterior_Prior20}">
+This plot shows, given any of the conductivity bin values are observed, how likely are you in a positive (green) versus negative (red) hidden geothermal resource. In general, electrical conductivities of lower crust less than 4.5 (S-m) are more likely to be a negative geothermal site, whereas greater than 4.75 S-m the calibrated dataset show $Pr(\Theta = positive)$= 100%.</p>
+<h1 id="acknowledgements">Acknowledgements</h1>
+<p>We acknowledge contributions from Sierra Rosado during the genesis of this project and from Nicole Taverna for providing feedback.
+We also acknowledge Drew Siler, Andres Laverde, and Gabe Matson for providing case histories using the VOI App for the Geothermal Rising VOI Workshop 2024.</p>
+<h1 id="references">References</h1>
+<p>J. E. Faulds et al., “Discovering Blind Geothermal Systems in the Great Basin Region : An Integrated Geologic and Geophysical Approach for Establishing Geothermal Play Fairways,” 2015. [Online]. Available: https://gdr.openei.org/files/756/Faulds-DE-EE0006731-Report-v2.pdf</p>
+<p>Howard, R. a. (1966). Information Value Theory. <i>Systems Science and Cybernetics, IEEE Transactions On</i>, <i>2</i>(1), 22–26. https://doi.org/10.1109/TSSC.1966.300074</p>
+<p>Trainor-Guitton, W., &amp; Rosado, S. (2023). A VOI Web Application for Distinct Geothermal Domains: Statistical Evaluation of Different Data Types within the Great Basin. 1836-1851. Paper presented at Geothermal Rising, Reno, Nevada. https://www.geothermal-library.org/index.php?mode=pubs&amp;action=view&amp;record=1034920</p>
+<p>VanderPlas, Jake. 2016. Python Data Science Handbook: Essential Tools for Working with Data. First edition. Python / Data. Beijing Boston Farnham Sebastopol Tokyo: O’Reilly.</p>
+
+</body>
+</html>
