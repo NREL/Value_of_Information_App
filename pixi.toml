@@ -1,0 +1,23 @@
+[workspace]
+authors = ["Whitney Trainor-Guitton <whitney.trainorguitton@nrel.gov>"]
+channels = ["conda-forge"]
+name = "voigeothermalrising"
+platforms = ["osx-arm64", "linux-64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[environments]
+default = { solve-group = "default" }
+test = { features = ["test"], solve-group = "default" }
+
+[dependencies]
+streamlit = ">=1.44.1,<2"
+numpy = ">=2.2.5,<3"
+matplotlib = ">=3.10.1,<4"
+seaborn = ">=0.13.2,<0.14"
+scikit-learn = ">=1.6.1,<2"
+pytest = ">=8.3.5,<9"
+
+[feature.test.dependencies]
+pytest = ">=8.3.5,<9"
