@@ -63,7 +63,7 @@ ax.xaxis.set_major_formatter('{x:0,.0f}')
 # Code for table with decision economic outcomes defined by the user.
 newValuedf1 = pd.DataFrame({
                "action": ['walk away','drill'],               
-                "Hydrothermal Resource (positive)": [0,value_array_df.iloc[1,1]*10]}   
+                "Geothermal Resource Exists (positive)": [0,value_array_df.iloc[1,1]*10]}   
         )
 
 # list = 
