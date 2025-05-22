@@ -77,7 +77,7 @@ original_title = '<p style="font-family:Courier; color:Black; font-size: 30px;">
 st.markdown(original_title, unsafe_allow_html=True)
 edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 
-pos_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
+pos_outcome = float(edited_df[['Geothermal Resource Exists (positive)']].values[1])
 # st.write('pos_outcome',pos_outcome)
 #neg = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
@@ -191,7 +191,9 @@ st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#3
 with st.sidebar:
     attribute0 = None        
     # LOCATION OF THIS FILE 
-    
+    st.page_link("https://forms.office.com/Pages/ResponsePage.aspx?id=fp3yoM0oVE-EQniFrufAgDjT0ckom9BErLMgwLSsipBUNDkwR05DRjlFNVpMQlFTQkxKSVA3NEJYMi4u",\
+                 label=':blue-background[**Click here:\n for feedback**]',icon=":material/cloud:")
+
     st.page_link("https://github.com/NREL/Value_of_Information_App/tree/main/File%20Template",\
                  label=':orange-background[**Click here:\n file templates & examples**]',icon=":material/question_exchange:")
     uploaded_files = st.file_uploader(\
@@ -349,6 +351,16 @@ if uploaded_files is not None:
                         "Economic Model": "3",
                         "Starting Electricity Sale Price": "0.15",
                         "Ending Electricity Sale Price": "1.00",
+
+                        #"Reservoir Heat Capacity": "790",
+                        #"Reservoir Thermal Conductivity": "3.05",
+                        #"Reservoir Porosity": "0.0118",
+                        #"Reservoir Impedance": "0.01",
+                        #"Number of Fractures": "108",
+                        #"Fracture Shape": "4",
+                        #"Fracture Height": "300",
+                        #"Fracture Width": "400",
+                        #"Fracture Separation": "30",
                         #"Number of Production Wells": "1",
                         #"Number of Injection Wells": "1", Keep out for now, add in later
                     })
@@ -367,8 +379,13 @@ if uploaded_files is not None:
             
             
 
+            
+            
+
+
             num = 30            
             # Manually setting since parsing is not working
+
             #for row1 in range(len(lines)):
                 ## check if string present on a current line
                 #row = lines[row1]
@@ -424,8 +441,10 @@ if uploaded_files is not None:
                     #no = row1
 
             # For drilling cost
-            
-            num = 93
+           
+            num = 93 # Change to 95 in new one
+
+
             npv = str(lines[num-1:num]) # Drilling and completion costs
         
             npv1= npv.split(':')
@@ -476,8 +495,8 @@ if uploaded_files is not None:
         # Table for Outcomes part with GEOPHIRES costs
         newValuedf = pd.DataFrame({
                "action": ['walk away','drill'],
-                "No Hydrothermal Resource (negative)": [0, drill_cost], 
-                "Hydrothermal Resource (positive)": [0,npv_final]}   
+                "No Geothermal Resource Exists (negative)": [0, drill_cost], 
+                "Geothermal Resource Exists (positive)": [0,npv_final]}   
         )
 
         # list = 
@@ -493,8 +512,8 @@ if uploaded_files is not None:
         st.write("Default values are based on GEOPHIRES results for gradient and depth (user input)")
         edited_df = st.data_editor(newValuedf,hide_index=True,use_container_width=True)
 
-        pos_drill_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
-        neg_drill_outcome = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
+        pos_drill_outcome = float(edited_df[['Geothermal Resource Exists (positive)']].values[1])
+        neg_drill_outcome = float(edited_df[['No Geothermal Resource Exists (negative)']].values[1])
 
         value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_drill_outcome, cost_drill_neg = neg_drill_outcome) # Karthik Changed here to reflect new values
         #st.write('value_array', value_array)
