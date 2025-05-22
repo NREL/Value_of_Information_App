@@ -168,17 +168,17 @@ def Scaledlikelihood_KDE(Pr_prior_POS, Likelihood_neg, Likelihood_pos, X_train,X
                         
     fig20, ax2 = plt.subplots(figsize=(15,8),ncols=1,nrows=1) # CHANGED to one subplot
     
-    n_out = ax2.hist([X_train[y_train>0]], alpha=0.1,facecolor='g',
-                    histtype='bar', hatch='O',label='$~Pr(X|\Theta=Positive_{geothermal}$)',bins=x_sampled) #tacked,bins rwidth= kde_pos.bandwidth) #rwidth= kde_pos.bandwidth,
+    n_out = ax2.hist([X_train[y_train>0]], alpha=0.05,facecolor='g',
+                    histtype='bar', bins=x_sampled) #tacked,bins rwidth= kde_pos.bandwidth) #rwidth= kde_pos.bandwidth,
     # posi = n_out[0]
     # posi = np.append(posi,0)
     
-    n_out = ax2.hist(X_train[y_train==0], alpha=0.1,facecolor='r',
-                    histtype='barstacked',hatch='/',label='$~Pr(X|\Theta=Negative_{geothermal}$)',bins=x_sampled) #rwidth= kde_pos.bandwidth (X_test.max() - X_test.min()) / 
+    n_out = ax2.hist(X_train[y_train==0], alpha=0.05,facecolor='r',
+                    histtype='barstacked',bins=x_sampled) #rwidth= kde_pos.bandwidth (X_test.max() - X_test.min()) / 
                     
-    ax2.legend(fontsize=18)
-    ax2.set_ylabel('Empirical data counts', fontsize=18)
-    ax2.tick_params(labelsize=20)
+    
+    # ax2.set_ylabel('Empirical data counts', fontsize=18)
+    ax2.tick_params(labelsize=20, color='grey')
     ax2_ylims = ax2.axes.get_ylim()  
 
     # negi = n_out[0]
@@ -192,9 +192,9 @@ def Scaledlikelihood_KDE(Pr_prior_POS, Likelihood_neg, Likelihood_pos, X_train,X
     # norm_neg1 = ((Likelihood_neg* tot_negi))
 
     ax1 = plt.twinx(ax=ax2)
-    ax1.fill_between(x_sampled, ScaledLikelihood[:,1], alpha=0.4,color='green') #norm_pos1, InputMarg_weight
+    ax1.fill_between(x_sampled, ScaledLikelihood[:,1], alpha=0.4,label='$~Pr(X|\Theta=Positive_{geothermal}$)',color='green') #norm_pos1, InputMarg_weight
     ax1.plot(x_sampled, ScaledLikelihood[:,1],'g.') # norm_pos1
-    ax1.fill_between(x_sampled,ScaledLikelihood[:,0], alpha=0.4,color='red') #norm_neg1 InputMarg_weight
+    ax1.fill_between(x_sampled,ScaledLikelihood[:,0], alpha=0.3,label='$~Pr(X|\Theta=Negative_{geothermal}$)',color='red') #norm_neg1 InputMarg_weight
     ax1.plot(x_sampled, ScaledLikelihood[:,0],'r.')  #norm_neg1
     ax1.legend(loc=0, fontsize=17)
     ax1.set_ylabel(' Scaled Likelihood $~Pr(x | y=Geothermal_{neg/pos}$', fontsize=25)#, rotation=-90)
@@ -206,10 +206,7 @@ def Scaledlikelihood_KDE(Pr_prior_POS, Likelihood_neg, Likelihood_pos, X_train,X
     ax1.set_ylim(0,ax_ylims[1])
     # ax1.set_ylim(0,ax2_ylims[1])
     
-    # #.iloc[:,feat4]
-    # # n_out = plt.hist([X_test[y_test>0],X_test[y_test==0]], color=['r','g'],histtype='barstacked',rwidth=(X_test.max() - X_test.min()) / kde_pos.bandwidth)
-    # #.iloc[:,feat4]
-    # n_out = axes[1].hist([X_test[y_test>0],X_test[y_test==0]], color=['g','r'],histtype='barstacked',rwidth=(X_test.max() - X_test.min()) / kde_pos.bandwidth)
+    ax1.legend(fontsize=18)
     st.pyplot(fig20)
 
 def Posterior_via_NaiveBayes(Pr_input_POS, X_train, X_test, y_train, y_test, x_sample, x_cur):
