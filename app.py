@@ -262,7 +262,7 @@ if uploaded_files is not None:
     st.title('Main App: ')
              
     if attribute0 is not None:
-        st.title('You picked this attribute: '+attribute0)
+        st.title('Likelihoods from uploaded data')
         st.write('Thresholding distances to labels')
 
         x_cur = attribute0
