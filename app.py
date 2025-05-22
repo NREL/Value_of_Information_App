@@ -77,7 +77,7 @@ original_title = '<p style="font-family:Courier; color:Black; font-size: 30px;">
 st.markdown(original_title, unsafe_allow_html=True)
 edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 
-pos_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
+pos_outcome = float(edited_df[['Geothermal Resource Exists (positive)']].values[1])
 # st.write('pos_outcome',pos_outcome)
 #neg = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
@@ -191,7 +191,9 @@ st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#3
 with st.sidebar:
     attribute0 = None        
     # LOCATION OF THIS FILE 
-    
+    st.page_link("https://forms.office.com/Pages/ResponsePage.aspx?id=fp3yoM0oVE-EQniFrufAgDjT0ckom9BErLMgwLSsipBUNDkwR05DRjlFNVpMQlFTQkxKSVA3NEJYMi4u",\
+                 label=':blue-background[**Click here:\n for feedback**]',icon=":material/cloud:")
+
     st.page_link("https://github.com/NREL/Value_of_Information_App/tree/main/File%20Template",\
                  label=':orange-background[**Click here:\n file templates & examples**]',icon=":material/question_exchange:")
     uploaded_files = st.file_uploader(\
@@ -493,8 +495,8 @@ if uploaded_files is not None:
         # Table for Outcomes part with GEOPHIRES costs
         newValuedf = pd.DataFrame({
                "action": ['walk away','drill'],
-                "No Hydrothermal Resource (negative)": [0, drill_cost], 
-                "Hydrothermal Resource (positive)": [0,npv_final]}   
+                "No Geothermal Resource Exists (negative)": [0, drill_cost], 
+                "Geothermal Resource Exists (positive)": [0,npv_final]}   
         )
 
         # list = 
@@ -510,8 +512,8 @@ if uploaded_files is not None:
         st.write("Default values are based on GEOPHIRES results for gradient and depth (user input)")
         edited_df = st.data_editor(newValuedf,hide_index=True,use_container_width=True)
 
-        pos_drill_outcome = float(edited_df[['Hydrothermal Resource (positive)']].values[1])
-        neg_drill_outcome = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
+        pos_drill_outcome = float(edited_df[['Geothermal Resource Exists (positive)']].values[1])
+        neg_drill_outcome = float(edited_df[['No Geothermal Resource Exists (negative)']].values[1])
 
         value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_drill_outcome, cost_drill_neg = neg_drill_outcome) # Karthik Changed here to reflect new values
         #st.write('value_array', value_array)
