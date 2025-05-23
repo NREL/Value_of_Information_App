@@ -263,8 +263,7 @@ if uploaded_files is not None:
              
     if attribute0 is not None:
         st.title('Likelihoods from uploaded data')
-        st.write('Thresholding distances to labels')
-
+        
         x_cur = attribute0
     
         df_screen = df[df[x_cur]>-9999]
@@ -273,7 +272,7 @@ if uploaded_files is not None:
         #st.write('attribute stats ', df_screen[attribute0].describe())
 
         neg_site_col_name = 'NegSite_Distance' # I change the name when making csv 'tsite_dist_nvml_neg_conus117_250m' #
-        distance_meters = st.slider('The '+neg_site_col_name+' Change likelihood by *screening* distance to positive label [meters]',
+        distance_meters = st.slider('Thresholding distances of data to labels (meters for INGENIOUS data sets)',
                                     10, int(np.max(df_screen['PosSite_Distance'])-10), int(np.max(df_screen['PosSite_Distance'].quantile(0.1))), step=100) # min, max, default
         # NEG_distance_meters = st.slider('Change likelihood by *screening* distance to negative label [km or meters??]', 
         #     10, int(np.max(df_screenN['NegSite_Di'])-10), int(np.median(df_screenN['NegSite_Di'])), step=1000)
@@ -289,8 +288,7 @@ if uploaded_files is not None:
             st.write('using Q1 distance for Negative sites')
             dfpairN = df_screenN[(df_screenN[neg_site_col_name ] <= np.percentile(df_screenN[neg_site_col_name ],10))] 
         
-        st.subheader('Calculate & Display Likelihoods')
-        st.write('We can compute this "empirical" likelihood with the counts of interpretations.')
+        st.subheader('Emplirical Likelihoods: bin counts of data')
        
         #waiting_condition = 1
         #while (waiting_condition):
@@ -306,24 +304,27 @@ if uploaded_files is not None:
         # Likelihood via KDE estimate
         predictedLikelihood_pos, predictedLikelihood_neg, x_sampled, count_ij= likelihood_KDE(X_train,X_test, y_train, y_test,x_cur, best_params)
      
-        st.write(':blue['+r'''$Pr(\Theta = \theta_i)$'''+'] in posterior')
-        Pr_prior_POS = Prior_probability_binary('Prior used in Posterior')
+        
 
-        st.subheader('~:blue[Prior]:point_up_2: x Likelhood :arrow_heading_up:')            
+        st.subheader(':blue[Prior]-Scaled Likelihood') 
+        Pr_prior_POS = Prior_probability_binary('Prior used in Posterior')
+        # st.write(':blue['+r'''$Pr(\Theta = \theta_i)$'''+'] in posterior')
+                 
         # New plot for normalized likelihood: Modeled after Likelihood via KDE estimate
         Scaledlikelihood_KDE(Pr_prior_POS,predictedLikelihood_neg, predictedLikelihood_pos,X_train,X_test, y_train, y_test,x_cur,x_sampled, best_params)
             
-        st.header('How much is this imperfect data worth?')
-        st.subheader(':point_down: :violet[Posterior]~:blue[Prior]:point_up_2: x Likelhood :arrow_heading_up:')
+        st.subheader(':point_down: :violet[Posterior] ~=:blue[Prior] x Likelhood ')
+        st.latex(r'''\color{purple} Pr( \Theta = \theta_i | X =x_j ) = \color{blue}
+        \frac{Pr(\Theta = \theta_i ) \color{black} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}''')  
         # POSTERIOR via_Naive_Bayes: Draw back here the marginal not using scaled likelihood..
         post_input, post_uniform = Posterior_via_NaiveBayes(Pr_prior_POS,X_train, X_test, y_train, y_test, x_sampled, x_cur)
              
-        # # DO NOT USE mymodule.marginal( because it's passing unscaled likelihood!!!)
-        # # Pr_Marg = mymodule.marginal(Pr_prior_POS, predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
+       
         Pr_InputMarg, Pr_UnifMarg, Prm_d_Input, Prm_d_Uniform = Posterior_by_hand(Pr_prior_POS,predictedLikelihood_pos, predictedLikelihood_neg, x_sampled)
         Posterior_Marginal_plot(Prm_d_Input, Prm_d_Uniform, Pr_InputMarg, x_cur, x_sampled) # WAS inputting: post_input, post_uniform, Pr_Marg, x_cur, x_sampled)
 
         # # # # # # VALUE OUTCOMES # # # # # # # # # #
+        st.header('How much is this imperfect data worth?')
         Input_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter gradient and depth</p>'
         st.markdown(Input_title, unsafe_allow_html=True)
         inputs = pd.DataFrame({
@@ -372,17 +373,9 @@ if uploaded_files is not None:
         #print(f.read())
         #print(f.read(1500))
             words = ['Project NPV:','Drilling and completion costs per well:']
-            
-           
-
+                       
             lines = f.readlines()
-            
-            
-
-            
-            
-
-
+                              
             num = 30            
             # Manually setting since parsing is not working
 
@@ -534,10 +527,7 @@ if uploaded_files is not None:
         # VII_unif = mymodule.f_VIMPERFECT(post_uniform, value_array,Pr_UnifMarg)
         VII_input = f_VIMPERFECT(Prm_d_Input, value_array, Pr_InputMarg)
         VII_unifPrior = f_VIMPERFECT(Prm_d_Uniform, value_array, Pr_UnifMarg)
-        
-        st.latex(r'''\color{purple} Pr( \Theta = \theta_i | X =x_j ) = \color{blue}
-        \frac{Pr(\Theta = \theta_i ) \color{black} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}''')
-        
+                       
         # st.write('Using these $v_a(\Theta)$',value_array_df)
         
         # list = 
