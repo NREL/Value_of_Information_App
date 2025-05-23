@@ -345,6 +345,7 @@ def marginal(Pr_prior_POS, predictedLikelihood_pos, predictedLikelihood_neg, x_s
     """
      The marginal describes how frequent is each data bin. This function updates the marginal using the
      prior (input by user) and likelihood (from data selected)
+      # # DO NOT USE mymodule.marginal( because it's passing unscaled likelihood!!!)
       
      Returns [1 X nbins] marginal
     """
