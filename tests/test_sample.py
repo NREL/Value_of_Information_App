@@ -13,10 +13,10 @@ import requests
 
 
 
-from User_input import st_file_selector, Prior_probability_binary, make_value_array
-from Naive_Bayes import make_train_test, optimal_bin
-from Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by_hand, Posterior_Marginal_plot, marginal, Posterior_via_NaiveBayes
-from VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
+from voi_app.User_input import st_file_selector, Prior_probability_binary, make_value_array
+from voi_app.Naive_Bayes import make_train_test, optimal_bin
+from voi_app.Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by_hand, Posterior_Marginal_plot, marginal, Posterior_via_NaiveBayes
+from voi_app.VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
 
 
 def Prior():
