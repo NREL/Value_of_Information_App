@@ -19,6 +19,10 @@ Users are able to model a "drill or walk away" decision and input prior probabil
 
 Next, the value of imperfect information is calculated, using a dataframe from various geophysical and geologicial observations around known geothermals systems and other locations deemed not a geothermal resource ("negative").
 
+## Working Examples
+User's can run a jupyternotebook using the following link: https://mybinder.org/v2/gh/NREL/Value_of_Information_App/354ccb5114849dd8004c24748bf49c24c07afce9?urlpath=lab%2Ftree%2Fsample_jupyternotebook.ipynb
+Alternatively, they are free to use the online streamlit app as well: https://voigeothermalrising.streamlit.app/
+
 ## Format of .csv files
 
 You must upload one .csv file with data assosciated with positive label and one file with data assosciated with negative labels. **Both** must contain at a minimum a column labeled for the distance to the label: "PosSite_Distance" and "NegSite_Distance" resepectively.
