@@ -13,3 +13,7 @@ mymodule/__pycache__/code.cpython-39.pyc
 mymodule/__pycache__/code.cpython-310.pyc
 mymodule/__pycache__/.DS_Store
 mymodule/__pycache__/code.cpython-39.pyc
+
+# pixi environments
+.pixi
+*.egg-info
