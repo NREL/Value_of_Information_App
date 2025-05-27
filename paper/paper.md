@@ -61,7 +61,7 @@ developing a hidden geothermal resource.
 Many geoscientists working in geothermal do not actively code and those outside 
 of oil and gas are not familiar with decision analysis. This VOI Streamlit
  App allows geoscientists to visualize the distribution of their data and calculate
- the value of imperfect (real!) data simply by upload two comma-seperated value (.csv) files. 
+ the value of imperfect (field) data simply by upload two comma-seperated value (.csv) files. 
  These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
   sites, respectively.
 
@@ -112,10 +112,4 @@ We acknowledge contributions from Sierra Rosado during the genesis of this proje
 We also acknowledge Drew Siler, Andres Laverde, and Gabe Matson for providing case histories using the VOI App for the Geothermal Rising VOI Workshop 2024.
 
 # References
- J. E. Faulds et al., “Discovering Blind Geothermal Systems in the Great Basin Region : An Integrated Geologic and Geophysical Approach for Establishing Geothermal Play Fairways,” 2015. [Online]. Available: https://gdr.openei.org/files/756/Faulds-DE-EE0006731-Report-v2.pdf
 
-Howard, R. a. (1966). Information Value Theory. <i>Systems Science and Cybernetics, IEEE Transactions On</i>, <i>2</i>(1), 22–26. https://doi.org/10.1109/TSSC.1966.300074
-
-Trainor-Guitton, W., & Rosado, S. (2023). A VOI Web Application for Distinct Geothermal Domains: Statistical Evaluation of Different Data Types within the Great Basin. 1836-1851. Paper presented at Geothermal Rising, Reno, Nevada. https://www.geothermal-library.org/index.php?mode=pubs&action=view&record=1034920
-
-VanderPlas, Jake. 2016. Python Data Science Handbook: Essential Tools for Working with Data. First edition. Python / Data. Beijing Boston Farnham Sebastopol Tokyo: O’Reilly.
