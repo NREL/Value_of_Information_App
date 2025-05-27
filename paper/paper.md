@@ -97,7 +97,9 @@ This figure provides a visual example of the empirical likelihood (bars) of the 
 ![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png)
 
 
-The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) is given below-
+The continuous lines in the above figure are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. 
+
+The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) is given below
 ![Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}](Scaled20Likelihood_CondLowCrust.png)
 
 
