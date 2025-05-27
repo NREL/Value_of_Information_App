@@ -81,8 +81,8 @@ After the .csv files are uploaded, the code base performs a grid search on bin s
 
 Next, the VOI App calculates the posterior probability: 
 <!-- Double dollars make self-standing equations: -->
-$$Pr( \Theta = \theta_i | X =x_j ) = \color{cyan} \frac{Pr(\Theta = \theta_i ) 
-\color{purple} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}$$ \
+$$Pr( \Theta = \theta_i | X =x_j ) = \frac{Pr(\Theta = \theta_i ) 
+Pr( X=x_j | \Theta = \theta_i )}{Pr (X=x_j)}$$ \
 which scales the "ideal" likelihood from the grid search with the user-entered prior probability of success ($\Theta = \theta_i$).
 The posterior replaces the prior to become the weight in the value *with* imperfect information: \
 $V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \theta_i | X=x_j)  v_a(\Theta = \theta_i)$
