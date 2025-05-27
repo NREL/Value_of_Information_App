@@ -21,6 +21,7 @@ Next, the value of imperfect information is calculated, using a dataframe from v
 
 ## Working Examples
 User's can run a jupyternotebook using the following link: https://mybinder.org/v2/gh/NREL/Value_of_Information_App/354ccb5114849dd8004c24748bf49c24c07afce9?urlpath=lab%2Ftree%2Fsample_jupyternotebook.ipynb
+
 Alternatively, they are free to use the online streamlit app as well: https://voigeothermalrising.streamlit.app/
 
 ## Format of .csv files
