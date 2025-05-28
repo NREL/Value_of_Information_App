@@ -53,7 +53,7 @@ attempts to quantify how useful specific information types are
 by quantifying their reliability and how it may help or hinder with decisions [@howard_information_1966]. 
 VOI is from the field of decision analysis and assess if the information will
 improve the average outcome of a decision made under uncertainty, like
-developing a hidden geothermal resource.
+developing a hidden geothermal resource. 
 
 # Statement of need
 
@@ -62,7 +62,7 @@ of oil and gas are not familiar with decision analysis. This VOI Streamlit
  App allows geoscientists to visualize the distribution of their data and calculate
  the value of imperfect (real!) data simply by upload two comma-seperated value (.csv) files. 
  These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
-  sites, respectively.
+  sites, respectively. It is challenging to produce many labeled data sets for earth problems as described in [@trainor-guitton_value_2014] and [trainor-guitton_value_2020]
 
 # Mathematics
 
@@ -87,7 +87,9 @@ which scales the "ideal" likelihood from the grid search with the user-entered p
 The posterior replaces the prior to become the weight in the value *with* imperfect information: \
 $V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \theta_i | X=x_j)  v_a(\Theta = \theta_i)$
 
-This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case.
+This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case. The value *of* imperfect information:
+$VOI_{imperfect} = V_{imperfect} - V_{prior}$
+
 
 # Example Output 
 The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perfect}$.
@@ -96,7 +98,7 @@ This figure provides a visual example of the empirical likelihood (bars) of the 
 positive sites (green) and negative sites (red): 
 ![Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Likelihood_CondLowCrust}](Likelihood_CondLowCrust.png)
 
-The continuous lines in \autoref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) 
+The continuous lines in \ref{fig:Likelihood_CondLowCrust.png} are the fitted kde likelihoods of the optimal bandwidth given the grid search for accuracy in Naïve Bayes. The likelihood scaled to a prior probability of success ($Pr(\Theta = positive$)=0.2) 
 ![Prior-Scaled Likelihoods of Electrical Conductivity of Lower Crust for INGENIOUS area.\label{fig:Scaled20Likelihood_CondLowCrust}](Scaled20Likelihood_CondLowCrust.png)
 
 The posterior plot of $Pr(\Theta = positive$)=0.2 are shown below
