@@ -63,7 +63,7 @@ of oil and gas are not familiar with decision analysis. This VOI Streamlit
  App allows geoscientists to visualize the distribution of their data and calculate
  the value of imperfect (field) data simply by upload two comma-seperated value (.csv) files. 
  These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
-  sites, respectively.
+  sites, respectively. It is challenging to produce many labeled data sets for earth problems as described in [@trainor-guitton_value_2014] and [@trainor-guitton_value_2020]
 
 # Mathematics
 
@@ -82,11 +82,14 @@ After the .csv files are uploaded, the code base performs a grid search on bin s
 
 Next, the VOI App calculates the posterior probability: 
 <!-- Double dollars make self-standing equations: -->
-$$Pr( \Theta = \theta_i | X =x_j ) = \color{cyan} \frac{Pr(\Theta = \theta_i ) 
-\color{purple} Pr( X=x_j | \Theta = \theta_i )}{\color{orange} Pr (X=x_j)}$$ \
+$$Pr( \Theta = \theta_i | X =x_j ) = \frac{Pr(\Theta = \theta_i ) 
+Pr( X=x_j | \Theta = \theta_i )}{Pr (X=x_j)}$$ \
 which scales the "ideal" likelihood from the grid search with the user-entered prior probability of success ($\Theta = \theta_i$).
 The posterior replaces the prior to become the weight in the value *with* imperfect information: \
 $V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \theta_i | X=x_j)  v_a(\Theta = \theta_i)$
+
+comparing to $V_{prior}$ gives an upper bound on what *any* information could bring or the value *of* perfect information ($VOI_{perfect}$): \
+$VOI_{perfect} = V_{perfect}- V_{prior}$
 
 This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case.
 
