@@ -5,13 +5,16 @@
 Install the package and dependencies:
 
 ```
-pip install -e .
+pip install -e . or,
+git clone -b JOSS_template --single-branch https://github.com/NREL/Value_of_Information_App.git
+cd Value_of_Information_App
+pip install -e.
 ```
 
 ## Running Locally
 
 ```
-streamlit run app.py --server.enableXsrfProtection false 
+streamlit run voi_app/app.py --server.enableXsrfProtection false 
 ```
 
 ## Value of Information parameters
