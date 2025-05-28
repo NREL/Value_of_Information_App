@@ -42,5 +42,6 @@ setup(
         "streamlit",
         "numpy",
         "matplotlib",
+        "git+ssh://git@github.com/NREL/GEOPHIRES-X.git#egg=geophires-x",
     ],
 )
