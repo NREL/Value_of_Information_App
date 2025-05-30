@@ -46,7 +46,7 @@ bibliography: paper.bib
 The Geothermal VOI App reveals which data types best distinguish between a 
 geothermal resource (positive) and an absence of a geothermal resource (negative). This can 
 represent various types of geothermal resources; the App was originally designed for 
-and provides examples hidden geothermal resources. Hidden geothermal resources that do not show any evidence
+and provides examples for hidden geothermal resources. Hidden geothermal resources are resources that do not show any evidence
 of existence on the surface, thus geophysical and geological observations 
 are used to make estimates of subsurface conditions. The VOI App, however, also includes 
 economics for both heating and cooling and power production projects from [@beckers_geophires_2019], 
@@ -54,7 +54,7 @@ and has been demonstrated for enhanced geothermal exploration projects [@trainor
 
 The value of information (VOI) metric attempts to quantify how useful specific information types are
 by quantifying their reliability and how it may help or hinder with decisions [@howard_information_1966]. 
-VOI is from the field of decision analysis and assess if the information will
+VOI is from the field of decision analysis and assesses if the information will
 improve the average outcome of a decision made under uncertainty, like
 developing a hidden geothermal resource. As is true for many subsurface decisions (e.g. groundwater,
 oil and gas, mining), many of the the data layers are direct evidence of the decision parameters. For exploration geothermal,
@@ -65,7 +65,7 @@ we are interested indentifying heat, permeability and fluids, therefore, often t
 Many geoscientists working in geothermal do not actively code and those outside 
 of oil and gas are not familiar with decision analysis. This VOI Streamlit 
 App allows geoscientists to visualize the distribution of their data and calculate
-the value of imperfect (field) data simply by upload two comma-seperated value (.csv) files. 
+the value of imperfect (field) data simply by uploading two comma-seperated value (.csv) files. 
 These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
  sites, respectively. It is challenging to produce many labeled data sets for earth problems as described in [@trainor-guitton_value_2014] and [@trainor-guitton_value_2020]
 
@@ -95,7 +95,7 @@ $V_{imperfect} = \sum_{j=1}^2 Pr(X = x_j) \max_a \sum_{i=1}^2  Pr(\Theta = \thet
 comparing to $V_{prior}$ gives an upper bound on what *any* information could bring or the value *of* perfect information ($VOI_{perfect}$): \
 $VOI_{perfect} = V_{perfect}- V_{prior}$
 
-This value tells user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data to discriminate between a positive and negative geothermal case.
+This value tells the user the ceiling of worth for this data attribute, given the economics and prior probability entered, and the reliability of the data in discriminating between a positive and negative geothermal case.
 
 # Example Output 
 The demo problem allows users to build intuition on how $V_{prior}$ and $V_{perfect}$.
