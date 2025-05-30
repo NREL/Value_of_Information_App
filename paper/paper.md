@@ -44,26 +44,30 @@ bibliography: paper.bib
 # Summary
 
 The Geothermal VOI App reveals which data types best distinguish between a 
-hidden conventional geothermal resource and no geothermal resource. Hidden 
-geothermal resources are geothermal resources that do not show any evidence
+geothermal resource (positive) and an absence of a geothermal resource (negative). This can 
+represent various types of geothermal resources; the App was originally designed for 
+and provides examples hidden geothermal resources. Hidden geothermal resources that do not show any evidence
 of existence on the surface, thus geophysical and geological observations 
-are used to make estimates of subsurface conditions. None of the the data 
-layers are direct evidence of heat, permeability and fluids, therefore 
-they are imperect indicators [@faulds_discovering_2015]. The value of information (VOI) metric 
-attempts to quantify how useful specific information types are
+are used to make estimates of subsurface conditions. The VOI App, however, also includes 
+economics for both heating and cooling and power production projects from [@beckers_geophires_2019], 
+and has been demonstrated for enhanced geothermal exploration projects [@trainor-guitton_2025].
+
+The value of information (VOI) metric attempts to quantify how useful specific information types are
 by quantifying their reliability and how it may help or hinder with decisions [@howard_information_1966]. 
 VOI is from the field of decision analysis and assess if the information will
 improve the average outcome of a decision made under uncertainty, like
-developing a hidden geothermal resource.
+developing a hidden geothermal resource. As is true for many subsurface decisions (e.g. groundwater,
+oil and gas, mining), many of the the data layers are direct evidence of the decision parameters. For exploration geothermal,
+we are interested indentifying heat, permeability and fluids, therefore, often times, the data layers are imperfect indicators [@faulds_discovering_2015].
 
 # Statement of need
 
 Many geoscientists working in geothermal do not actively code and those outside 
-of oil and gas are not familiar with decision analysis. This VOI Streamlit
- App allows geoscientists to visualize the distribution of their data and calculate
- the value of imperfect (field) data simply by upload two comma-seperated value (.csv) files. 
- These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
-  sites, respectively. It is challenging to produce many labeled data sets for earth problems as described in [@trainor-guitton_value_2014] and [@trainor-guitton_value_2020]
+of oil and gas are not familiar with decision analysis. This VOI Streamlit 
+App allows geoscientists to visualize the distribution of their data and calculate
+the value of imperfect (field) data simply by upload two comma-seperated value (.csv) files. 
+These two files represent calibrated data set: data assosciated with a positive and negative hidden geothermal
+ sites, respectively. It is challenging to produce many labeled data sets for earth problems as described in [@trainor-guitton_value_2014] and [@trainor-guitton_value_2020]
 
 # Mathematics
 
