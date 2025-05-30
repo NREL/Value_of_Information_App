@@ -195,7 +195,7 @@ with st.sidebar:
                  label=':blue-background[**Click here:\n for feedback**]',icon=":material/cloud:")
 
     st.page_link("https://github.com/NREL/Value_of_Information_App/tree/main/File%20Template",\
-                 label=':orange-background[**Click here:\n file templates & examples**]',icon=":material/question_exchange:")
+                 label=':orange-background[**Click here:\n User Manual, file templates & examples**]',icon=":material/question_exchange:")
     uploaded_files = st.file_uploader(\
         "Upload two data files,namely a Positive Label file (\'POS_\' :fire:) & a Negative Label (\'NEG_\':thumbsdown:) file ", \
                                       type=['csv'],accept_multiple_files=True)
