@@ -1,5 +1,5 @@
 ---
-title: 'Value of Information: A Streamlit Python for geothermal exploration'
+title: 'Value of Information Application for Binary Subsurface Drilling Decisions'
 tags:
   - Decision Analysis
   - Bayesian statistics
