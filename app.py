@@ -105,17 +105,18 @@ st.write('$V_{prior} =$  best action given each weighted average')
 # }
 # </style>""", unsafe_allow_html=True)
 
-#st.write('Average outcome, using $Pr(Success)$ ~ Prior probability')
-# st.write(r'''$V_{prior} =  \max\limits_a \Sigma_{i=1}^2 Pr(\Theta = \theta_i)  v_a(\theta_i) \ \  \forall a $''')
-stuff = '''$V_{prior}=$'''
-st.markdown(stuff, unsafe_allow_html=True) #'<p class="big-latex"> stuff </p>'
-st.latex(r''' \max\limits_a 
-            \begin{cases}
+##st.write('Average outcome, using $Pr(Success)$ ~ Prior probability')
+## st.write(r'''$V_{prior} =  \max\limits_a \Sigma_{i=1}^2 Pr(\Theta = \theta_i)  v_a(\theta_i) \ \  \forall a $''')
+
+# stuff = '''$V_{prior}=$'''
+# st.markdown(stuff, unsafe_allow_html=True) #'<p class="big-latex"> stuff </p>'
+# st.latex(r''' \max\limits_a 
+#             \begin{cases}
             
-            Pr(positive) v_{drill}(positive) + Pr(negative)  v_{drill}(negative)             &\text{if a=drill} \\
-            &\ \\
-            Pr(positive) v_{nothing}(positive) + Pr(negative)  v_{nothing}(negative)  =0     &\text{if do a=nothing}
-            \end{cases} ''')
+#             Pr(positive) v_{drill}(positive) + Pr(negative)  v_{drill}(negative)             &\text{if a=drill} \\
+#             &\ \\
+#             Pr(positive) v_{nothing}(positive) + Pr(negative)  v_{nothing}(negative)  =0     &\text{if do a=nothing}
+#             \end{cases} ''')
 
          
 # Plotting VOI
