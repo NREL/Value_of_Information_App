@@ -63,7 +63,8 @@ ax.xaxis.set_major_formatter('{x:0,.0f}')
 # Code for table with decision economic outcomes defined by the user.
 newValuedf1 = pd.DataFrame({
                "action": ['walk away','drill'],               
-                "Geothermal Resource Exists (positive)": [0,value_array_df.iloc[1,1]*10]}   
+                "Positive: Geothermal Resource Exists": [0,value_array_df.iloc[1,1]*10],
+                "Negative: Absence of Geothermal": [0,'GEOPHIRES drilling costs']}   
         )
 
 # list = 
@@ -76,8 +77,13 @@ newValuedf1.style.set_properties(**{'font-size': '35pt'}) # this doesn't seem to
 original_title = '<p style="font-family:Courier; color:Black; font-size: 30px;"> Enter economic values for your decision [$] </p>'
 st.markdown(original_title, unsafe_allow_html=True)
 edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
+# try this https://discuss.streamlit.io/t/center-dataframe-header/51193/4
+# newValuedf1.style.set_properties(**{'text-align': 'center'}).set_table_styles([{'selector': 'th', 'props': [('text-align', 'center')]}])
+# st.markdown('<style>.col_heading{text-align: center;}</style>', unsafe_allow_html=True)
+# newValuedf1.columns = ['<div class="col_heading">'+col+'</div>' for col in newValuedf1.columns] 
+# st.write(newValuedf1.to_html(escape=False), unsafe_allow_html=True)
 
-pos_outcome = float(edited_df[['Geothermal Resource Exists (positive)']].values[1])
+pos_outcome = float(edited_df[['Positive: Geothermal Resource Exists']].values[1])
 # st.write('pos_outcome',pos_outcome)
 #neg = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
