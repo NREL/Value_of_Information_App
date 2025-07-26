@@ -108,8 +108,8 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         num = 93 # Change to 95 in new one
 
 
-        npv = str(lines[num-1:num]) # Drilling and completion costs
-    
+        npv = str(lines[num-1:num]) # Drilling and completion costs per well
+        print('npv line 112', npv)
         npv1= npv.split(':')
         npv1 = npv.replace(" ","")
         npv1 = npv1.replace('\n',"")
@@ -123,7 +123,6 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         aa = str(final_npv[0:1])
         val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
         val2 = (val.strip())
-
         val2 = float(val2)
         drill_cost = -1*val2*1e6
 
