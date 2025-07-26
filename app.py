@@ -64,7 +64,8 @@ ax.xaxis.set_major_formatter('{x:0,.0f}')
 newValuedf1 = pd.DataFrame({
                "action": ['walk away','drill'],               
                 "Positive: Geothermal Resource Exists": [0,value_array_df.iloc[1,1]*10],
-                "Negative: Absence of Geothermal": [0,'GEOPHIRES drilling costs']}   
+                #"Negative: Absence of Geothermal": [0,'GEOPHIRES drilling costs'] 
+                }   
         )
 
 # list = 
