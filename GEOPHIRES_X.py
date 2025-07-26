@@ -10,6 +10,7 @@ import os
 from PIL import Image
 import requests
 from io import BytesIO
+import re
 
 def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
     client = GeophiresXClient()
@@ -81,11 +82,10 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         val2 = (val.strip())
     
         val2 = float(val2)
-
+        print('NPV ',val2)
         
         npv_final = val2*1e6
         
-
         num = 31            
         # Manually setting since word is not working
         #for row1 in range(len(lines)):
@@ -103,12 +103,11 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
                 #no = lines.index(row)
                 #no = row1
 
-        # For drilling cost
+        #### For electricity # # # #  # #
         
-        num = 93 # Change to 95 in new one
-
-
-        npv = str(lines[num-1:num]) # Drilling and completion costs per well
+        num = 96 # Change to 95 in new one
+        ## Drilling and completion costs per well
+        npv = str(lines[num-1:num]) 
         print('npv line 112', npv)
         npv1= npv.split(':')
         npv1 = npv.replace(" ","")
@@ -122,12 +121,17 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         final_npv = npvv[1:2]
         aa = str(final_npv[0:1])
         val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
-        val2 = (val.strip())
-        val2 = float(val2)
-        drill_cost = -1*val2*1e6
+        # print('124 val', val)
+        val2 = val.strip()
 
-        num = 94
-        npv = str(lines[num-1:num]) # Drilling and completion costs
+        val3 = re.sub("[^0-9\.]", "", val2)
+        #print('type(val2) val3', val2, type(val2), val3)
+        if len(val3)>0:
+            val2 = float(val3)
+            drill_cost = -1*val2*1e6
+
+        num = 94  # Drilling and completion costs for direct use (CHANGE VARIALBE NAME)
+        npv = str(lines[num-1:num])
     
         npv1= npv.split(':')
         npv1 = npv.replace(" ","")
@@ -142,14 +146,14 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         aa = str(final_npv[0:1])
         val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
         val2 = (val.strip())
-
-        val2 = float(val2)
-        drill_cost2 = -1*val2*1e6
-        
-        
+        val4 = re.sub("[^0-9\.]", "", val2)
+        # print('149 npv2 val2 val4', npv2, val2, val4)
+        if len(val4)>0:
+            val2 = float(val4)
+            drill_cost2 = -1*val2*1e6
     
     
-    if (type_geo == 2):
+    if (type_geo == 2): #Direct use
         drill_cost = drill_cost2
     else:
         drill_cost = drill_cost
