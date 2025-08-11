@@ -62,9 +62,9 @@ ax.xaxis.set_major_formatter('{x:0,.0f}')
 
 # Code for table with decision economic outcomes defined by the user.
 newValuedf1 = pd.DataFrame({
-               "action": ['walk away','drill'],               
+               "action": [ 'walk away','drill',],               
                 "Positive: Geothermal Resource Exists": [0,value_array_df.iloc[1,1]*10],
-                "Negative: Absence of Geothermal": [0,'GEOPHIRES drilling costs']}   
+                "Negative: Absence of Geothermal": [0,'User Defined Revenue - drilling costs']}   
         )
 
 # list = 
@@ -74,7 +74,7 @@ newValuedf1.style.set_properties(**{'font-size': '35pt'}) # this doesn't seem to
  #bigdf.style.background_gradient(cmap, axis=1)\
 
 # Code to input these values
-original_title = '<p style="font-family:Courier; color:Black; font-size: 30px;"> Enter economic values for your decision [$] </p>'
+original_title = '<p style="font-family:Courier; color:Black; font-size: 25px;"> Enter economic values for your decision [$] </p>'
 st.markdown(original_title, unsafe_allow_html=True)
 edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 # try this https://discuss.streamlit.io/t/center-dataframe-header/51193/4
@@ -83,7 +83,7 @@ edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 # newValuedf1.columns = ['<div class="col_heading">'+col+'</div>' for col in newValuedf1.columns] 
 # st.write(newValuedf1.to_html(escape=False), unsafe_allow_html=True)
 
-pos_outcome = float(edited_df[['Positive: Geothermal Resource Exists']].values[1])
+pos_outcome = float(edited_df[['Positive: Geothermal Resource Exists']].values[1]) 
 # st.write('pos_outcome',pos_outcome)
 #neg = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
@@ -295,7 +295,7 @@ if uploaded_files is not None:
             st.write('using Q1 distance for Negative sites')
             dfpairN = df_screenN[(df_screenN[neg_site_col_name ] <= np.percentile(df_screenN[neg_site_col_name ],10))] 
         
-        st.subheader('Emplirical Likelihoods: bin counts of data')
+        st.subheader('Empirical Likelihoods: bin counts of data')
        
         #waiting_condition = 1
         #while (waiting_condition):
@@ -355,14 +355,11 @@ if uploaded_files is not None:
         no_inj = 2 # Default production and injection wells from GEOPHIRES- user can change if needed.
         npv_final,drill_cost = Geophires_output(gradient,depth,type_geo,no_prod,no_inj)
 
-
-
-        
         # Table for Outcomes part with GEOPHIRES costs
         newValuedf = pd.DataFrame({
                "action": ['walk away','drill'],
-                "No Geothermal Resource Exists (negative)": [0, drill_cost], 
-                "Geothermal Resource Exists (positive)": [0,npv_final]}   
+               "Geothermal Resource Exists (positive)": [0,npv_final],
+               "No Geothermal Resource Exists (negative)": [0,drill_cost]}   
         )
 
         # list = 
@@ -372,7 +369,7 @@ if uploaded_files is not None:
         #bigdf.style.background_gradient(cmap, axis=1)\
 
         # Code to be written to input these values
-        original_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter economic values for your decision</p>'
+        original_title = '<p style="font-family:Courier; color:Green; font-size: 15px;"> Enter economic values for your decision</p>'
         
         st.markdown(original_title, unsafe_allow_html=True)
         st.write("Default values are based on GEOPHIRES results for gradient and depth (user input)")
