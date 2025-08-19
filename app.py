@@ -20,7 +20,9 @@ from Bayesian_Modeling import likelihood_KDE, Scaledlikelihood_KDE, Posterior_by
 from VOI import Vperfect, f_MI, f_VIMPERFECT, f_VPRIOR
 
 # PRIORS - > USER INPUT
-st.header('Interactive Demonstration of Relationship between Value of Information and Prior Value')
+# st.header('Interactive Demonstration of Relationship between Value of Information and Prior Value')
+st.header('Demo: Average outcome ($) making decision without additional data')
+
 
 
 #Code below plots the Decision Tree image from github
@@ -134,7 +136,7 @@ firstfig2, ax1 = plt.subplots() # Plotting the VOI figure
 
 ax1.plot(vprior_depth, vprior_INPUT_demo_list, 'g.-', linewidth=5,label='$V_{prior}$')
 plt.ylabel(r'Average Outcome Value [\$]',fontsize=14)
-plt.xlabel('Well Depth (m)', color='darkred',fontsize=14)
+plt.xlabel('Well Depth (m)', color='brown',fontsize=14)
 
 # Plotting text on the VOI plot
 txtonplot = r'$v_{a=Drill}(\Theta=Positive) =$'
@@ -173,12 +175,13 @@ axins1 = inset_axes(
 axins1.plot(vprior_depth,value_drill_DRYHOLE,'g.-', linewidth=5)#,color = 'red')
 
 #plt.ylabel(r'Average Drilling Cost [\$]',fontsize=7)
-plt.xlabel('Depth (m)', color='darkred',fontsize=7)
+plt.xlabel('Depth (m)', color='brown',fontsize=7)
 plt.title(r'Drilling Costs [\$]', fontsize = 7)
 formatter = ticker.ScalarFormatter()
 formatter.set_scientific(True)
 axins1.yaxis.set_major_formatter(formatter)
-axins1.yaxis.set_major_formatter('${x:0,.0e}') #:0,.0f
+axins1.yaxis.set_major_formatter('${x:0,.0f}') #:0,.0e
+axins1.tick_params(axis='y', colors='red')
 axins1.xaxis.set_major_formatter(formatter)
 axins1.xaxis.set_major_formatter('{x:0,.0f}')
 
@@ -369,7 +372,7 @@ if uploaded_files is not None:
         #bigdf.style.background_gradient(cmap, axis=1)\
 
         # Code to be written to input these values
-        original_title = '<p style="font-family:Courier; color:Green; font-size: 15px;"> Enter economic values for your decision</p>'
+        original_title = '<p style="font-family:Courier; color:Green; font-size: 15px;"> Enter revenue for your drill decision with positive geothermal combination</p>'
         
         st.markdown(original_title, unsafe_allow_html=True)
         st.write("Default values are based on GEOPHIRES results for gradient and depth (user input)")
