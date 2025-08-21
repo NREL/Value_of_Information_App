@@ -76,7 +76,7 @@ newValuedf1.style.set_properties(**{'font-size': '35pt'}) # this doesn't seem to
  #bigdf.style.background_gradient(cmap, axis=1)\
 
 # Code to input these values
-original_title = '<p style="font-family:Courier; color:Black; font-size: 25px;"> Enter economic values for your decision [$] </p>'
+original_title = '<p style="font-family:Courier; color:Black; font-size: 25px;"> Enter revenue for your \'drill\' decision with *positive* geothermal combination [$] </p>'
 st.markdown(original_title, unsafe_allow_html=True)
 edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 # try this https://discuss.streamlit.io/t/center-dataframe-header/51193/4
@@ -401,32 +401,6 @@ if uploaded_files is not None:
         VII_input = f_VIMPERFECT(Prm_d_Input, value_array, Pr_InputMarg)
         VII_unifPrior = f_VIMPERFECT(Prm_d_Uniform, value_array, Pr_UnifMarg)
                        
-        # st.write('Using these $v_a(\Theta)$',value_array_df)
-        
-        # list = 
-        # idx= pd.Index(list)
-        # newValuedf.set_index(idx)
-        #newValuedf.style.set_properties(**{'font-size': '35pt'}) # this doesn't seem to work
-        #bigdf.style.background_gradient(cmap, axis=1)\
-
-        # Code to be written to input these values
-        #original_title = '<p style="font-family:Courier; color:Green; font-size: 30px;"> Enter economic values for your decision</p>'
-        #st.markdown(original_title, unsafe_allow_html=True)
-        #edited_df = st.data_editor(newValuedf,hide_index=True,use_container_width=True)
-        
-        #st.data_editor(value_array_df,
-                         #column_config={
-                        #"positive": st.column_config.NumberColumn(
-                         #"Price (in USD)",
-                         #help="Change the profit in USD",
-                         #min_value=-1e12,
-                         #max_value=1e12,
-                         #step=1e3,
-                         #format="$%d",
-                         #)
-                     #},
-             #hide_index=True,
-         #)
         
         st.subheader(r'''$V_{imperfect}$='''+'${:0,.0f}'.format(VII_input).replace('$-','-$'))
         st.subheader('Vprior  \${:0,.0f},\t   VOIperfect = \${:0,.0f}'.format(vprior_unif_out,VPI-vprior_unif_out).replace('$-','-$'))
