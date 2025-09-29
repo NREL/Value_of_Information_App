@@ -20,7 +20,7 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
                     "Reservoir Depth": depth,
                     "End-Use Option": type_geo,
                     # "Power Plant Type": "1", #subcritical ORC, had "3" originally
-                    "Economic Model": "3",
+                    #"Economic Model": "3",
                     "Starting Electricity Sale Price": "0.15",
                     "Ending Electricity Sale Price": "1.00",
 
