@@ -1,0 +1,20 @@
+---
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+      - ./.aws/credentials:/root/.aws/credentials:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - BASE_IMAGE_TAG=3.12-slim
+      - DOCKER_ENV_VARS='on'
+    command: ["streamlit", "run", "Met_Tower_M5.py", "--server.port=8501", "--server.address=0.0.0.0"]
