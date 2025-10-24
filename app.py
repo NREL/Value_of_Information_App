@@ -85,7 +85,10 @@ edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 # newValuedf1.columns = ['<div class="col_heading">'+col+'</div>' for col in newValuedf1.columns] 
 # st.write(newValuedf1.to_html(escape=False), unsafe_allow_html=True)
 
-pos_outcome = float(edited_df[['Positive: Geothermal Resource Exists']].values[1]) 
+revenue = np.ravel(edited_df[['Positive: Geothermal Resource Exists']])
+st.write('revenue', revenue)
+pos_outcome = float(revenue[1])  # float(revenue.values[1])
+# pos_outcome = float(edited_df[['Positive: Geothermal Resource Exists']].values[1])
 # st.write('pos_outcome',pos_outcome)
 #neg = float(edited_df[['No Hydrothermal Resource (negative)']].values[1])
 value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_outcome, cost_drill_neg = -1e-6)
@@ -314,8 +317,6 @@ if uploaded_files is not None:
         # Likelihood via KDE estimate
         predictedLikelihood_pos, predictedLikelihood_neg, x_sampled, count_ij= likelihood_KDE(X_train,X_test, y_train, y_test,x_cur, best_params)
      
-        
-
         st.subheader(':blue[Prior]-Scaled Likelihood') 
         Pr_prior_POS = Prior_probability_binary('Prior used in Posterior')
         # st.write(':blue['+r'''$Pr(\Theta = \theta_i)$'''+'] in posterior')
@@ -378,9 +379,10 @@ if uploaded_files is not None:
         st.write("Default values are based on GEOPHIRES results for gradient and depth (user input)")
         edited_df = st.data_editor(newValuedf,hide_index=True,use_container_width=True)
 
-        pos_drill_outcome = float(edited_df[['Geothermal Resource Exists (positive)']].values[1])
-        neg_drill_outcome = float(edited_df[['No Geothermal Resource Exists (negative)']].values[1])
-
+        pos_drill_outcome = float(np.ravel(edited_df[['Geothermal Resource Exists (positive)']])[1]) 
+        # st.write('old and new', float(edited_df[['Geothermal Resource Exists (positive)']].values[1]), pos_drill_outcome)
+        neg_drill_outcome = float(np.ravel(edited_df[['No Geothermal Resource Exists (negative)']])[1])
+        # st.write('old and new', float(edited_df[['No Geothermal Resource Exists (negative)']].values[1]), neg_drill_outcome)
         value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_drill_outcome, cost_drill_neg = neg_drill_outcome) # Karthik Changed here to reflect new values
         #st.write('value_array', value_array)
 
