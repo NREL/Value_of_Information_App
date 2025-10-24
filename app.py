@@ -380,8 +380,8 @@ if uploaded_files is not None:
         edited_df = st.data_editor(newValuedf,hide_index=True,use_container_width=True)
 
         pos_drill_outcome = float(np.ravel(edited_df[['Geothermal Resource Exists (positive)']])[1]) 
-        # st.write('old and new', float(edited_df[['Geothermal Resource Exists (positive)']].values[1]), pos_drill_outcome)
         neg_drill_outcome = float(np.ravel(edited_df[['No Geothermal Resource Exists (negative)']])[1])
+        # st.write('old and new', float(edited_df[['Geothermal Resource Exists (positive)']].values[1]), pos_drill_outcome)
         # st.write('old and new', float(edited_df[['No Geothermal Resource Exists (negative)']].values[1]), neg_drill_outcome)
         value_array, value_array_df = make_value_array(count_ij, profit_drill_pos= pos_drill_outcome, cost_drill_neg = neg_drill_outcome) # Karthik Changed here to reflect new values
         #st.write('value_array', value_array)
