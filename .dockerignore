@@ -1,0 +1,40 @@
+# Ignore deployment scripts and configs
+release.sh
+env-vars.sh
+create-docker-compose-aws-credentials.sh
+appfleet-config*
+*.tar.gz
+
+# Ignore local dev/test artifacts
+tests/
+*.ipynb
+sample_jupyternotebook.ipynb
+sequential_sample_jupyternotebook.ipynb
+paper/
+File Template/*.pdf
+File Template/*.csv
+
+# Ignore version control and OS files
+.git
+.gitignore
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignore alternative docker-related files
+docker-compose*.yml
+Dockerfile
+Dockerfile.prod
+Makefile
+
+# Ignore style/formatting/aux files
+# requirements_style.txt
+*.md
+LICENSE
+
+# Optional: ignore ALL images except specific ones if needed
+# !File Template/dtree2.png
