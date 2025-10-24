@@ -14,5 +14,5 @@ services:
       - ./.aws/credentials:/root/.aws/credentials:ro
     environment:
       - PYTHONUNBUFFERED=1
-      - BASE_IMAGE_TAG=3.12-slim
+      - BASE_IMAGE_TAG=3.12.2-slim-bookworm
       - DOCKER_ENV_VARS='on'
