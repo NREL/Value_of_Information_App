@@ -69,26 +69,8 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         # st.write('NPV line 85, num, Pnum',val2, num, Pnum)
         
         npv_final = val2*1e6
-             
-        # Manually setting since word is not working
-        #for row1 in range(len(lines)):
-            ## check if string present on a current line
-            #row = lines[row1]
-            #st.write(row)
-            #word = 'Project NPV:'
-            
-            #print(row.find(word))
-            # find() method returns -1 if the value is not found,
-            # if found it returns index of the first occurrence of the substring
-            #if row.find(word) != -1:
-                #st.write('string exists in file')
-                #st.write('line Number:', lines.index(row))
-                #no = lines.index(row)
-                #no = row1
-
-        #### For electricity # # # #  # #
-        
-         ## Drilling and completion costs per well       
+                       
+        ## Drilling and completion costs per well       
         WellCostElecnum = [ind for ind, line in enumerate(lines) if "drilling and completion costs" in line.casefold()][0]
         # num = 96 # was 96, Change to 95 in new one
        
