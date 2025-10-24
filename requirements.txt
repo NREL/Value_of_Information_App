@@ -5,3 +5,4 @@ matplotlib
 scikit-learn
 git+https://github.com/NREL/GEOPHIRES-X.git#egg=geophires-x
 streamlit
+requests
