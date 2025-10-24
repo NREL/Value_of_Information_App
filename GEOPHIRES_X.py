@@ -47,7 +47,7 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
                     
         lines = f.readlines()
                             
-        num = 30            
+        num = 31#30            
         # Manually setting since parsing is not working
 
         #for row1 in range(len(lines)):
@@ -82,7 +82,7 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
         val2 = (val.strip())
     
         val2 = float(val2)
-        print('NPV ',val2)
+        print('NPV line 85, num',val2, num)
         
         npv_final = val2*1e6
         
@@ -105,21 +105,21 @@ def Geophires_output(gradient,depth,type_geo,no_prod,no_inj):
 
         #### For electricity # # # #  # #
         
-        num = 96 # Change to 95 in new one
+        num = 96 # was 96, Change to 95 in new one
         ## Drilling and completion costs per well
-        npv = str(lines[num-1:num]) 
-        print('npv line 112', npv)
-        npv1= npv.split(':')
-        npv1 = npv.replace(" ","")
-        npv1 = npv1.replace('\n',"")
-        npv1 = npv1.split('MUSD')
+        dcpw = str(lines[num-1:num]) 
+        print('npv line 112', dcpw)
+        # stim1= stim.split(':')
+        stim1 = dcpw.replace(" ","")
+        stim1 = stim1.replace('\n',"")
+        stim1 = stim1.split('MUSD')
         
-        npv2 = npv1[0:1]
+        stim2 = stim1[0:1]
         
-        npv2 = str(npv2)
-        npvv = npv2.split(':')
-        final_npv = npvv[1:2]
-        aa = str(final_npv[0:1])
+        stim2 = str(stim2)
+        stim3 = stim2.split(':')
+        final_stim = stim3[1:2]
+        aa = str(final_stim[0:1])
         val = (''.join(c for c in aa if (c.isdigit() or c =='.' or c =='-')))
         # print('124 val', val)
         val2 = val.strip()
