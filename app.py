@@ -86,7 +86,7 @@ edited_df = st.data_editor(newValuedf1,hide_index=True,use_container_width=True)
 # st.write(newValuedf1.to_html(escape=False), unsafe_allow_html=True)
 
 revenue = np.ravel(edited_df[['Positive: Geothermal Resource Exists']])
-st.write('revenue', revenue)
+# st.write('revenue', revenue)
 pos_outcome = float(revenue[1])  # float(revenue.values[1])
 # pos_outcome = float(edited_df[['Positive: Geothermal Resource Exists']].values[1])
 # st.write('pos_outcome',pos_outcome)
